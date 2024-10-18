@@ -1,0 +1,4 @@
+.force_ignore_padding {
+    width: calc(100% + 8px);
+    margin-left: -4px;
+}
