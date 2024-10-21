@@ -22,7 +22,7 @@ export default function RootLayout({
       <body
         className={`${notoSansKr.className} antialiased max-w-[480px] m-auto h-screen border-2 border-black`}
       >
-        <main className="px-1 pt-20">{children}</main>
+        <main className="px-[14px] pt-20">{children}</main>
       </body>
     </html>
   );

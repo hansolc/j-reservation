@@ -15,8 +15,8 @@ interface UserButtonProps
 }
 
 const btnSize = {
-  sm: "w-[309px]",
-  lg: "w-[340px]",
+  sm: "max-w-[309px]",
+  lg: "max-w-[340px]",
   full: "w-full",
 };
 
@@ -44,6 +44,7 @@ const BaseButton = ({
     btnSize[size],
     { "rounded-lg": isRadius },
     "h-[50px]",
+    "text-lg",
     className
   );
   return (

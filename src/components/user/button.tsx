@@ -5,12 +5,16 @@ import BaseButton from "../common/BaseButton";
 
 import { UserButtonProps } from "@/app/types/button";
 
-const Button = ({ children, ...rest }: UserButtonProps) => {
+const Button = ({ children, className = "", ...rest }: UserButtonProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     console.log(e.target);
   };
   return (
-    <BaseButton onClick={(e) => handleClick(e)} {...rest}>
+    <BaseButton
+      onClick={(e) => handleClick(e)}
+      {...rest}
+      className={`w-full ${className}`}
+    >
       {children}
     </BaseButton>
   );
