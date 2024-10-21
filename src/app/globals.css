@@ -30,3 +30,7 @@ body {
     text-wrap: balance;
   }
 }
+
+btn {
+  color: var(--btn-color)
+}
