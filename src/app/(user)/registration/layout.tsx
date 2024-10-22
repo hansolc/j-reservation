@@ -1,4 +1,4 @@
-import Goback from "@/components/user/GoBack";
+import Goback from "@components/user/GoBack";
 import React from "react";
 
 const RegistrationLayout = ({ children }: { children: React.ReactNode }) => {

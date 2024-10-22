@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/user/Button";
-import InputOutlinedBottom from "@/components/user/input/InputOutlinedBottom";
+import Button from "@components/user/button";
+import InputOutlinedBottom from "@components/user/input/InputOutlinedBottom";
 import { useRouter } from "next/navigation";
 import React from "react";
 
