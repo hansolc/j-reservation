@@ -1,4 +1,9 @@
 .force_ignore_padding {
-    width: calc(100% + 0.5rem);
-    margin-left: -4px;
+    width: calc(100% + 28px);
+    margin-left: -14px;
+}
+
+.home_absolute_container {
+    width: calc(100% - 8px);
+    @apply absolute bg-white left-[4px] top-[135px] rounded-lg border border-black h-[317px];
 }

@@ -14,6 +14,9 @@ const config: Config = {
         primary: "#007AFF",
         kakao: "#F9E000",
       },
+      backgroundImage: {
+        "home-img": "url('/assets/images/home_rest_img.png')",
+      },
     },
   },
   plugins: [],
