@@ -42,7 +42,7 @@ body {
   .home_absolute_container {
     width: calc(100% - 8px);
     @apply absolute bg-white left-[4px] top-[135px] rounded-lg border border-black h-[317px];
-}
+  }
 }
 
 
