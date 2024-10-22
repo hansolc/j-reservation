@@ -45,6 +45,14 @@ body {
   }
 }
 
+@layer common {
+  .global-section {
+    >:not(:first-child) {
+      margin-top: 1.5rem;
+    }
+  }
+}
+
 
 @layer utilities {
   .text-balance {

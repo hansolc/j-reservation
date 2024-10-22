@@ -14,7 +14,11 @@ interface SectionTextProps {
 }
 
 const Section = ({ children, ...rest }: SectionProps) => {
-  return <section {...rest}>{children}</section>;
+  return (
+    <section className="global-section" {...rest}>
+      {children}
+    </section>
+  );
 };
 
 const SectionText = ({
