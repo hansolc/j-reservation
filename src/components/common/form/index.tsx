@@ -33,7 +33,7 @@ const Form: FormComponentType = ({ children }: FormProps) => {
   return (
     <form
       action=""
-      className="border rounded-lg px-3 py-7 shadow-md shadow-[#00000040]"
+      className="border rounded-lg px-3 py-7 shadow-md shadow-[#00000040] bg-white"
     >
       {children}
     </form>

@@ -1,9 +1,13 @@
 "use client";
 
+interface ReservationFormProps {
+  readOnly?: boolean;
+}
+
 import Form from "@/components/common/form";
 import React from "react";
 
-const ReservationForm = () => {
+const ReservationForm = ({ readOnly = false }: ReservationFormProps) => {
   return (
     <Form>
       <Form.Header>
@@ -22,14 +26,23 @@ const ReservationForm = () => {
         <Form.Input label="어린이" type="kids" placeholder="0" />
       </Form.FieldContainer>
       <hr className="border-[#DDDDDD] my-4" />
-      {[1, 2, 3].map((d) => {
-        return (
-          <Form.FieldContainer multiple key={`temp_${d}`}>
+      {readOnly ? (
+        <>
+          <Form.FieldContainer multiple>
             <Form.Input label="날짜" type="adults" placeholder="0" seperate />
             <Form.Input label="시간" type="kids" placeholder="0" />
           </Form.FieldContainer>
-        );
-      })}
+        </>
+      ) : (
+        [1, 2, 3].map((d) => {
+          return (
+            <Form.FieldContainer multiple key={`temp_${d}`}>
+              <Form.Input label="날짜" type="adults" placeholder="0" seperate />
+              <Form.Input label="시간" type="kids" placeholder="0" />
+            </Form.FieldContainer>
+          );
+        })
+      )}
     </Form>
   );
 };
