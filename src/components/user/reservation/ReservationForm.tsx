@@ -1,13 +1,24 @@
 "use client";
 
-interface ReservationFormProps {
-  readOnly?: boolean;
-}
-
 import Form from "@/components/common/form";
 import React from "react";
+import {
+  ReservationContainerProps,
+  ReservationFormProps,
+} from "@/types/Reservation";
 
-const ReservationForm = ({ readOnly = false }: ReservationFormProps) => {
+const ReservationForm = ({
+  isLoggedIn = false,
+  formData,
+  handleInputChange,
+}: {
+  // temporal fixed required ***
+  isLoggedIn: boolean;
+  formData: ReservationFormProps;
+  handleInputChange: (field: string, value: any) => void;
+}) => {
+  const { googleLinks, adults, kids, date, time } = formData;
+
   return (
     <Form>
       <Form.Header>
@@ -19,6 +30,8 @@ const ReservationForm = ({ readOnly = false }: ReservationFormProps) => {
           label="구글 지도 음식점 링크 공유"
           type="link"
           placeholder="https://maps.google.com"
+          value={googleLinks}
+          onChange={(e) => handleInputChange("googleLinks", e.target.value)}
         ></Form.Input>
       </Form.FieldContainer>
       <Form.FieldContainer multiple>
@@ -26,7 +39,7 @@ const ReservationForm = ({ readOnly = false }: ReservationFormProps) => {
         <Form.Input label="어린이" type="kids" placeholder="0" />
       </Form.FieldContainer>
       <hr className="border-[#DDDDDD] my-4" />
-      {readOnly ? (
+      {!isLoggedIn ? (
         <>
           <Form.FieldContainer multiple>
             <Form.Input label="날짜" type="adults" placeholder="0" seperate />

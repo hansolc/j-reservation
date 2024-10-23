@@ -3,11 +3,27 @@ import styles from "./page.module.css";
 import ReservationForm from "@components/user/reservation/ReservationForm";
 import LoginButtons from "./(home)/LoginButtons";
 import FirstUserBanner from "@/components/user/FirstUserBanner";
+import HomeHeader from "@/components/user/HomeHeader";
+import ReservationContainer from "@/components/user/reservation/ReservationContainer";
 
-const UserLoginPage = () => {
+// interface UserInfoProps {
+//   reservationCnt?: number;
+// }
+
+// const getUserInfo = async (): Promise<UserInfoProps> => {
+//   // get userinfo api
+
+//   return {
+//     reservationCnt: 1
+//   }
+// }
+
+const UserLoginPage = async () => {
+  // const userInfo = await getUserInfo();
+
   return (
     <div className="h-container">
-      <header className="text-2xl font-extrabold">오마타세</header>
+      <HomeHeader isLoggedIn={true}>오마타세</HomeHeader>
       <hr className={`border-[#DDDDDD] ${styles.force_ignore_padding}`} />
       <section>
         <FirstUserBanner />
@@ -21,7 +37,7 @@ const UserLoginPage = () => {
         </div>
       </section>
       <section className="mt-[-100px] z-40 relative px-1">
-        <ReservationForm readOnly />
+        <ReservationContainer />
       </section>
       <section>
         <LoginButtons />
