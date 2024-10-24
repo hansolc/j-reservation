@@ -1,6 +1,6 @@
 "use client";
 
-import { ReservationFormDataProps, ReservationKeys } from "@/types/Reservation";
+import { ReservationFormDataProps, ReservationKeys } from "@/types/reservation";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 

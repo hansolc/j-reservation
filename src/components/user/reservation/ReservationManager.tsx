@@ -3,7 +3,7 @@
 import React from "react";
 import ReservationForm from "./ReservationForm";
 import Button from "../button";
-import { ReservationManagerProps } from "@/types/Reservation";
+import { ReservationManagerProps } from "@/types/reservation";
 import useReservation from "./useReservation";
 
 const ReservationManager = ({ isLoggedIn = true }: ReservationManagerProps) => {
