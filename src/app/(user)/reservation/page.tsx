@@ -1,7 +1,7 @@
 import Section from "@/components/common/section";
 import FirstUserBanner from "@/components/user/FirstUserBanner";
 import Goback from "@/components/user/GoBack";
-import ReservationForm from "@/components/user/reservation/ReservationForm";
+import ReservationManager from "@/components/user/reservation/ReservationManager";
 import React from "react";
 
 const ReservationPage = () => {
@@ -12,7 +12,7 @@ const ReservationPage = () => {
         예약확인
       </div>
       <FirstUserBanner />
-      <ReservationForm />
+      <ReservationManager />
     </Section>
   );
 };

@@ -16,7 +16,7 @@ interface FormFieldContainerProps {
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  type: "link" | "adults" | "kids";
+  type?: "text" | "date" | "time";
   placeholder?: string;
   className?: string;
   seperate?: boolean;
@@ -46,21 +46,25 @@ const FormHeader = ({ children }: FormHeaderProps) => {
 
 const FormInput = ({
   label,
-  type,
+  type = "text",
   placeholder,
   seperate,
+  name,
   ...rest
 }: FormInputProps) => {
   return (
     <div
-      className={cls({
-        "border-r mr-[15px]": seperate,
-      })}
+      className={cls(
+        {
+          "border-r mr-2": seperate,
+        },
+        "w-full"
+      )}
     >
       <p className="text-[10px] font-bold">{label}</p>
       <input
         className={cls("w-full", {
-          "border-b border-[#DDDDDD]": type === "link",
+          "border-b border-[#DDDDDD]": name === "googleLinks",
         })}
         type={type}
         placeholder={placeholder}

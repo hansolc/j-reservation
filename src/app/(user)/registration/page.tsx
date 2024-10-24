@@ -1,9 +1,9 @@
 "use client";
 
 import Button from "@components/user/button";
-import InputOutlinedBottom from "@components/user/input/InputOutlinedBottom";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { default as RegistrationForm } from "@/components/user/LoginForm";
 
 const RegistrationPage = () => {
   const router = useRouter();
@@ -15,19 +15,9 @@ const RegistrationPage = () => {
           <br />
           정보를 입력해주세요.
         </header>
-        <form className="flex flex-col gap-8 pt-8">
-          <InputOutlinedBottom
-            label="이메일"
-            type="text"
-            placeholder="omatasae@example.com"
-          />
-          <InputOutlinedBottom
-            label="비밀번호"
-            type="password"
-            placeholder="omatase"
-          />
-        </form>
+        <RegistrationForm />
       </div>
+      {/* *** 클라이언트 컴포넌트로 변경 후 현재 페이지 Server Component로 변경 */}
       <footer className="absolute w-full pr-[inherit] flex flex-col items-center bottom-6">
         <p className="text-sm">이미 아이디가 있으신가요?</p>
         <p
