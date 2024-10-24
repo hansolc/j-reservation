@@ -1,9 +1,11 @@
 "use client";
 
-import { ReservationFormDataProps, ReservationKeys } from "@/types/Reservation";
+import { ReservationFormDataProps, ReservationKeys } from "@/types/reservation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const useReservation = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState<ReservationFormDataProps>({
     googleLinks: "",
     adults: 0,
@@ -47,7 +49,9 @@ const useReservation = () => {
     }
   };
 
-  const createReservation = () => {};
+  const createReservation = () => {
+    router.push("/reservation/success");
+  };
 
   return { formData, handleFormChange, createReservation };
 };

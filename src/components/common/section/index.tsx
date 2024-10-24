@@ -3,6 +3,7 @@ import cls from "classnames";
 
 interface SectionProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 interface SectionTextProps {
@@ -13,9 +14,17 @@ interface SectionTextProps {
   className?: string;
 }
 
-const Section = ({ children, ...rest }: SectionProps) => {
+type SectionCompoentType = React.FunctionComponent<SectionProps> & {
+  Text: React.FunctionComponent<SectionTextProps>;
+};
+
+const Section: SectionCompoentType = ({
+  children,
+  className = "",
+  ...rest
+}: SectionProps) => {
   return (
-    <section className="global-section" {...rest}>
+    <section className={`global-section ${className}`} {...rest}>
       {children}
     </section>
   );
@@ -47,7 +56,6 @@ const SectionText = ({
   );
 };
 
-SectionText.displayName = "Section.Text";
 Section.Text = SectionText;
 
 export default Section;

@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${notoSansKr.className} antialiased max-w-[380px] min-w-[360px] m-auto h-screen`}
+        className={`${notoSansKr.className} antialiased max-w-[380px] min-w-[360px] m-auto h-screen border-2`}
       >
         <main className="px-[14px] pt-20 h-full">{children}</main>
       </body>

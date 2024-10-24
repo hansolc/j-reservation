@@ -1,6 +1,6 @@
 import Form from "@/components/common/form";
 import React from "react";
-import { ReservationFormProps } from "@/types/Reservation";
+import { ReservationFormProps } from "@/types/reservation";
 
 const ReservationForm = ({
   isLoggedIn = false,
