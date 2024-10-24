@@ -1,29 +1,12 @@
-"use client";
-
-import LoginForm from "@/components/user/LoginForm";
-import Button from "@components/user/button";
-import { useRouter } from "next/navigation";
+import RegistrationManager from "@/components/user/registration/RegistrationManager";
+import SectionHeader from "@/components/user/SectionHeader";
 import React from "react";
 
 const RegistrationLoginPage = () => {
-  const router = useRouter();
   return (
     <>
-      <div>
-        <header className="text-2xl font-bold">로그인하기</header>
-        <LoginForm />
-      </div>
-      <footer className="fixed w-full flex flex-col items-center bottom-6 left-0">
-        <Button
-          color="primary"
-          size="lg"
-          isRadius
-          className="mt-3"
-          onClick={() => router.push("/")}
-        >
-          로그인하기
-        </Button>
-      </footer>
+      <SectionHeader text={["로그인하기"]} />
+      <RegistrationManager type="login" />
     </>
   );
 };

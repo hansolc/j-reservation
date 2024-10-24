@@ -1,4 +1,4 @@
-import { InputOutlinedBottomProps } from "@/app/types/input";
+import { InputOutlinedBottomProps } from "@/types/input";
 
 const InputOutlinedBottom = ({
   label,

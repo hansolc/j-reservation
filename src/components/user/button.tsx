@@ -3,7 +3,7 @@
 import React from "react";
 import BaseButton from "../common/BaseButton";
 
-import { UserButtonProps } from "@/app/types/button";
+import { UserButtonProps } from "@/types/button";
 
 const Button = ({ children, className = "", ...rest }: UserButtonProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

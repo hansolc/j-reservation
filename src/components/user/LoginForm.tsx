@@ -1,36 +1,20 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
 import InputOutlinedBottom from "./input/InputOutlinedBottom";
+import { LoginFormProps } from "@/types/registration";
 
-interface LoginInfoProps {
-  email: string;
-  password: string;
-}
-
-const LoginForm = () => {
-  const [info, setInfo] = useState<LoginInfoProps>({
-    email: "",
-    password: "",
-  });
-
+const LoginForm = ({ info, handleChange }: LoginFormProps) => {
   // *** Email, password Regex 규칙 추가
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target as HTMLInputElement;
-    setInfo({
-      ...info,
-      [e.target.name]: value,
-    });
-  };
 
   return (
-    <form className="flex flex-col gap-8 pt-8">
+    <div className="flex flex-col gap-8 pt-8">
       <InputOutlinedBottom
         label="이메일"
         type="text"
         placeholder="omatasae@example.com"
         name="email"
-        handleInputChange={handleInputChange}
+        handleInputChange={handleChange}
         value={info.email}
       />
       <InputOutlinedBottom
@@ -38,10 +22,10 @@ const LoginForm = () => {
         type="password"
         placeholder="omatase"
         name="password"
-        handleInputChange={handleInputChange}
+        handleInputChange={handleChange}
         value={info.password}
       />
-    </form>
+    </div>
   );
 };
 
