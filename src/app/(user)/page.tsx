@@ -1,10 +1,9 @@
 import React from "react";
 import styles from "./page.module.css";
-import ReservationForm from "@components/user/reservation/ReservationForm";
 import LoginButtons from "./(home)/LoginButtons";
 import FirstUserBanner from "@/components/user/FirstUserBanner";
 import HomeHeader from "@/components/user/HomeHeader";
-import ReservationContainer from "@/components/user/reservation/ReservationContainer";
+import ReservationManager from "@/components/user/reservation/ReservationManager";
 
 // interface UserInfoProps {
 //   reservationCnt?: number;
@@ -37,7 +36,7 @@ const UserLoginPage = async () => {
         </div>
       </section>
       <section className="mt-[-100px] z-40 relative px-1">
-        <ReservationContainer />
+        <ReservationManager isLoggedIn />
       </section>
       <section>
         <LoginButtons />

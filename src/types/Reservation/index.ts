@@ -1,13 +1,29 @@
-interface ReservationContainerProps {
-  isLoggedIn: boolean;
+type ReservationKeys = "googleLinks" | "adults" | "kids" | "dateTimeArray";
+
+interface ReservationManagerProps {
+  isLoggedIn?: boolean;
 }
 
-interface ReservationFormProps {
+interface ReservationFormProps extends ReservationManagerProps {
+  formData: ReservationFormDataProps;
+  handleFormChange: (
+    field: ReservationKeys,
+    value: string,
+    idx1?: number,
+    idx2?: number
+  ) => void;
+}
+
+interface ReservationFormDataProps {
   googleLinks: string;
   adults: number;
   kids: number;
-  date: Date;
-  time: string;
+  dateTimeArray: Array<[string, string]>;
 }
 
-export type { ReservationContainerProps, ReservationFormProps };
+export type {
+  ReservationKeys,
+  ReservationManagerProps,
+  ReservationFormProps,
+  ReservationFormDataProps,
+};
