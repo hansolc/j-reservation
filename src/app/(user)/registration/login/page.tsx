@@ -13,7 +13,7 @@ const RegistrationLoginPage = () => {
         <header className="text-2xl font-bold">로그인하기</header>
         <LoginForm />
       </div>
-      <footer className="absolute w-full pr-[inherit] flex flex-col items-center bottom-6">
+      <footer className="fixed w-full flex flex-col items-center bottom-6 left-0">
         <Button
           color="primary"
           size="lg"
