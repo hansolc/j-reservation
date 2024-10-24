@@ -35,13 +35,21 @@ body {
 @layer home {
   .h-container {
     section {
-      padding-top: 10px;
+      padding-top: 20px;
     }
   }
 
   .home_absolute_container {
     width: calc(100% - 8px);
     @apply absolute bg-white left-[4px] top-[135px] rounded-lg border border-black h-[317px];
+  }
+}
+
+@layer common {
+  .global-section {
+    >:not(:first-child) {
+      margin-top: 1.5rem;
+    }
   }
 }
 

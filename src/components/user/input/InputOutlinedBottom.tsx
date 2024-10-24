@@ -5,6 +5,7 @@ const InputOutlinedBottom = ({
   type,
   placeholder,
   className,
+  handleInputChange,
   ...rest
 }: InputOutlinedBottomProps) => {
   return (
@@ -14,6 +15,7 @@ const InputOutlinedBottom = ({
         type={type}
         placeholder={placeholder}
         className={`border-b-[1px] border-b-[#DDDDDD] pt-2 ${className}`}
+        onChange={handleInputChange}
         {...rest}
       />
     </div>
