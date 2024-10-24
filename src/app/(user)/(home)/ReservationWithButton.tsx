@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Button from "@/components/user/Button";
+import Button from "@components/user/button";
 
 const ReservationFormWithButton = () => {
   const [formInfo, setFormInfo] = useState({
