@@ -1,4 +1,5 @@
 import Section from "@/components/common/section";
+import Button from "@/components/user/button";
 import FirstUserBanner from "@/components/user/FirstUserBanner";
 import Goback from "@/components/user/GoBack";
 import ReservationManager from "@/components/user/reservation/ReservationManager";
@@ -14,12 +15,15 @@ const ReservationCheckPage = async () => {
         <Goback />
         예약확인
       </Section.Text>
-      <div>
-        <Link href="/">
-          <FirstUserBanner />
-        </Link>
-      </div>
+      <Link href="/">
+        <FirstUserBanner className="mt-4" />
+      </Link>
       <ReservationManager />
+      <Link href="/reservation/1">
+        <Button color="primary" size="full" className="mt-5">
+          추가예약
+        </Button>
+      </Link>
     </Section>
   );
 };

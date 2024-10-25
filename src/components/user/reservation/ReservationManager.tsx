@@ -6,7 +6,9 @@ import Button from "../button";
 import { ReservationManagerProps } from "@/types/reservation";
 import useReservation from "./useReservation";
 
-const ReservationManager = ({ isLoggedIn = true }: ReservationManagerProps) => {
+const ReservationManager = ({
+  isLoggedIn = false,
+}: ReservationManagerProps) => {
   const { formData, handleFormChange, createReservation } = useReservation();
   return (
     <div className="flex flex-col items-center gap-5">
