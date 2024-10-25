@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import LoginForm from "../LoginForm";
 import Button from "../button";
 import useRegistration from "./useRegistration";
@@ -8,15 +8,18 @@ import useRegistration from "./useRegistration";
 const RegistrationManager = ({ type }: { type: "regis" | "login" }) => {
   const { info, handleInputChange, registration, login } = useRegistration();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (type === "login") {
-      // api login from useRegistration
-      login(info);
-    } else {
-      registration(info);
-    }
-  };
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      if (type === "login") {
+        // api login from useRegistration
+        login(info);
+      } else {
+        registration(info);
+      }
+    },
+    [type, login, registration, info]
+  );
 
   return (
     <form onSubmit={handleSubmit}>
