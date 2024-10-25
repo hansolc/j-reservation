@@ -4,8 +4,11 @@ import React, { useCallback } from "react";
 import LoginForm from "../LoginForm";
 import Button from "../button";
 import useRegistration from "./useRegistration";
+import { useRouter } from "next/navigation";
 
 const RegistrationManager = ({ type }: { type: "regis" | "login" }) => {
+  const router = useRouter();
+
   const { info, handleInputChange, registration, login } = useRegistration();
 
   const handleSubmit = useCallback(
@@ -29,7 +32,10 @@ const RegistrationManager = ({ type }: { type: "regis" | "login" }) => {
       {type === "regis" ? (
         <div className="text-center text-sm">
           <p className="">이미 아이디가 있으신 가요?</p>
-          <p className="text-[#575757] border-b font-bold inline">
+          <p
+            className="text-[#575757] border-b font-bold inline"
+            onClick={() => router.push("/registration/login")}
+          >
             로그인 하기
           </p>
         </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import styles from "./page.module.css";
 import LoginButtons from "./(home)/LoginButtons";
@@ -17,12 +19,12 @@ import ReservationManager from "@/components/user/reservation/ReservationManager
 //   }
 // }
 
-const UserLoginPage = async () => {
+const UserLoginPage = () => {
   // const userInfo = await getUserInfo();
 
   return (
     <div className="h-container">
-      <HomeHeader isLoggedIn={true}>오마타세</HomeHeader>
+      <HomeHeader>오마타세</HomeHeader>
       <hr className={`border-[#DDDDDD] ${styles.force_ignore_padding}`} />
       <section>
         <FirstUserBanner />
@@ -36,7 +38,7 @@ const UserLoginPage = async () => {
         </div>
       </section>
       <section className="mt-[-100px] z-40 relative px-1">
-        <ReservationManager isLoggedIn />
+        <ReservationManager />
       </section>
       <section>
         <LoginButtons />

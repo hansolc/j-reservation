@@ -13,7 +13,11 @@ const HomeHeader = ({ children, isLoggedIn = false }: HomeHeaderProps) => {
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const { id } = e.target as HTMLDivElement;
-    router.push(`/${id}`);
+    if (id === "check") {
+      router.push(`reservation/${id}`);
+    } else {
+      // request 처리
+    }
   };
 
   return (
