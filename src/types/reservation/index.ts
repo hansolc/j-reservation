@@ -2,15 +2,16 @@ type ReservationKeys = "googleLinks" | "adults" | "kids" | "dateTimeArray";
 
 interface ReservationManagerProps {
   isLoggedIn?: boolean;
+  readonly?: boolean;
 }
 
 interface ReservationFormProps extends ReservationManagerProps {
   formData: ReservationFormDataProps;
-  handleFormChange: (
+  handleFormChange?: (
     field: ReservationKeys,
-    value: string,
-    idx1?: number,
-    idx2?: number
+    e: React.ChangeEvent<HTMLInputElement>,
+    arrayIndex?: number,
+    innerIndex?: number
   ) => void;
 }
 

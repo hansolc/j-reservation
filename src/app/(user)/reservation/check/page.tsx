@@ -2,9 +2,20 @@ import Section from "@/components/common/section";
 import Button from "@/components/user/button";
 import FirstUserBanner from "@/components/user/FirstUserBanner";
 import Goback from "@/components/user/GoBack";
-import ReservationManager from "@/components/user/reservation/ReservationManager";
+import ReservationForm from "@/components/user/reservation/ReservationForm";
+import { ReservationFormDataProps } from "@/types/reservation";
 import Link from "next/link";
 import React from "react";
+
+const temp: ReservationFormDataProps = {
+  googleLinks: "",
+  adults: 0,
+  kids: 0,
+  dateTimeArray: Array(3).fill([
+    new Date().toISOString().split("T")[0],
+    "00:00",
+  ]),
+};
 
 const ReservationCheckPage = async () => {
   // get reservation info api here
@@ -15,10 +26,9 @@ const ReservationCheckPage = async () => {
         <Goback />
         예약확인
       </Section.Text>
-      <Link href="/">
-        <FirstUserBanner className="mt-4" />
-      </Link>
-      <ReservationManager />
+      <FirstUserBanner className="mt-4" />
+
+      <ReservationForm formData={temp} readonly isLoggedIn={true} />
       <Link href="/reservation/1">
         <Button color="primary" size="full" className="mt-5">
           추가예약
