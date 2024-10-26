@@ -29,7 +29,7 @@ const useRegistration = () => {
   const registration = async ({ email, password }: UserLoginInfoProps) => {
     try {
       const res = await handleApiCall(
-        () => console.log({ email, password }),
+        () => registrationByUserInfo({ email, password }),
         setLoading,
         setError
       );
