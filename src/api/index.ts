@@ -7,7 +7,7 @@ export const registrationByUserInfo = async ({
   email,
   password,
 }: registrationInfoProps) => {
-  const res = await fetch("https://hansoltest.free.beeceptor.com/todos", {
+  const res = await fetch("", {
     method: "POST",
     body: JSON.stringify({
       email: email,
