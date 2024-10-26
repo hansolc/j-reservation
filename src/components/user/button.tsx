@@ -7,7 +7,7 @@ import { UserButtonProps } from "@/types/button";
 
 const Button = ({ children, className = "", ...rest }: UserButtonProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.log(e.target);
+    console.log("button clicked: ", e);
   };
   return (
     <BaseButton

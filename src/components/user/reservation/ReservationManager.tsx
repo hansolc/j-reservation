@@ -8,14 +8,15 @@ import useReservation from "./useReservation";
 
 const ReservationManager = ({
   isLoggedIn = false,
+  readonly = false,
 }: ReservationManagerProps) => {
   const { formData, handleFormChange, createReservation } = useReservation();
   return (
     <div className="flex flex-col items-center gap-5">
       <ReservationForm
-        isLoggedIn={isLoggedIn}
+        readonly={readonly}
         formData={formData}
-        handleFormChange={handleFormChange}
+        handleFormChange={isLoggedIn ? handleFormChange : undefined}
       />
       {isLoggedIn && (
         <Button color="primary" size="sm" isRadius onClick={createReservation}>

@@ -16,14 +16,13 @@ const useReservation = () => {
     ]),
   });
 
-  // parameter type assertion need
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFormChange = (
     field: ReservationKeys,
-    value: string,
-    arrayIndex: number | undefined,
-    innerIndex: number | undefined
+    e: React.ChangeEvent<HTMLInputElement>,
+    arrayIndex?: number,
+    innerIndex?: number
   ) => {
+    const { value } = e.target;
     if (
       field === "dateTimeArray" &&
       arrayIndex !== undefined &&

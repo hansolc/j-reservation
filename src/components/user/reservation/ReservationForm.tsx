@@ -1,13 +1,21 @@
 import Form from "@/components/common/form";
 import React from "react";
-import { ReservationFormProps } from "@/types/reservation";
+import { ReservationFormProps, ReservationKeys } from "@/types/reservation";
 
 const ReservationForm = ({
-  isLoggedIn = false,
+  readonly,
   formData,
   handleFormChange,
+  isLoggedIn,
 }: ReservationFormProps) => {
-  const { googleLinks, adults, kids } = formData;
+  const { googleLinks, adults, kids, dateTimeArray } = formData;
+
+  // curring
+  const handleChange = (field: ReservationKeys, idx1?: number, idx2?: number) =>
+    handleFormChange
+      ? (e: React.ChangeEvent<HTMLInputElement>) =>
+          handleFormChange(field, e, idx1, idx2)
+      : undefined;
 
   return (
     <Form>
@@ -20,8 +28,10 @@ const ReservationForm = ({
           label="구글 지도 음식점 링크 공유"
           placeholder="https://maps.google.com"
           value={googleLinks}
-          onChange={(e) => handleFormChange("googleLinks", e.target.value)}
+          onChange={handleChange("googleLinks")}
           name="googleLinks"
+          disabled={!handleFormChange || readonly}
+          readOnly={!handleFormChange}
         ></Form.Input>
       </Form.FieldContainer>
       <Form.FieldContainer multiple>
@@ -30,54 +40,43 @@ const ReservationForm = ({
           placeholder="0"
           seperate
           value={adults}
-          onChange={(e) => handleFormChange("adults", e.target.value)}
+          onChange={handleChange("adults")}
+          disabled={!handleFormChange || readonly}
+          readOnly={!handleFormChange}
         />
         <Form.Input
           label="어린이"
           placeholder="0"
           value={kids}
-          onChange={(e) => handleFormChange("kids", e.target.value)}
+          onChange={handleChange("kids")}
+          disabled={!handleFormChange || readonly}
+          readOnly={!handleFormChange}
         />
       </Form.FieldContainer>
       <hr className="border-[#DDDDDD] my-4" />
-      {!isLoggedIn ? (
-        <>
-          <Form.FieldContainer multiple>
-            <Form.Input label="날짜" type="date" placeholder="0" seperate />
-            <Form.Input label="시간" type="time" placeholder="0" />
-          </Form.FieldContainer>
-        </>
-      ) : (
-        // ***uuid를 써야 하나?
-        formData.dateTimeArray.map(([date, time], idx) => {
-          return (
-            <Form.FieldContainer
-              multiple
-              key={`multiple_input_keys${date}_${idx}_container`}
-            >
-              <Form.Input
-                label="날짜"
-                type="date"
-                placeholder="0"
-                seperate
-                value={date}
-                onChange={(e) =>
-                  handleFormChange("dateTimeArray", e.target.value, idx, 0)
-                }
-              />
-              <Form.Input
-                label="시간"
-                type="time"
-                placeholder="0"
-                value={time}
-                onChange={(e) =>
-                  handleFormChange("dateTimeArray", e.target.value, idx, 1)
-                }
-              />
-            </Form.FieldContainer>
-          );
-        })
-      )}
+      {isLoggedIn
+        ? dateTimeArray.map(([date, time], idx) => {
+            return (
+              <Form.FieldContainer multiple key={`temporal_idx_${idx}`}>
+                <Form.Input
+                  label="날짜"
+                  type="date"
+                  seperate
+                  value={date}
+                  onChange={handleChange("dateTimeArray", idx, 0)}
+                  disabled={!handleFormChange || readonly}
+                />
+                <Form.Input
+                  label="시간"
+                  type="time"
+                  value={time}
+                  onChange={handleChange("dateTimeArray", idx, 1)}
+                  disabled={!handleFormChange || readonly}
+                />
+              </Form.FieldContainer>
+            );
+          })
+        : null}
     </Form>
   );
 };

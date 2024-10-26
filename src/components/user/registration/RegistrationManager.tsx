@@ -33,17 +33,13 @@ const RegistrationManager = ({ type }: { type: "regis" | "login" }) => {
         <div className="text-center text-sm">
           <p className="">이미 아이디가 있으신 가요?</p>
           <p
-            className="text-[#575757] border-b font-bold inline"
+            className="text-[#575757] border-b font-bold inline cursor-pointer"
             onClick={() => router.push("/registration/login")}
           >
             로그인 하기
           </p>
         </div>
       ) : null}
-      {/* ***issue) 모바일 뷰 개선하기 
-        - 이메일/비밀번호 입력을 위해 input field 클릭 시 키보드가 올라오며 버튼이 
-          input field을 가리게 된다. (position: fixed로 설정시)
-      */}
       <Button
         color="primary"
         size="lg"
