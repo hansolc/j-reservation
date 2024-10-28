@@ -1,13 +1,13 @@
 import { ChangeEvent } from "react";
 
-interface UserLoginInfoProps {
+interface AuthProps {
   email: string;
   password: string;
 }
 
 interface LoginFormProps {
-  info: UserLoginInfoProps;
+  info: AuthProps;
   handleChange: (T: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export type { UserLoginInfoProps, LoginFormProps };
+export type { AuthProps, LoginFormProps };

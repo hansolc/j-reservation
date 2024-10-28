@@ -2,7 +2,7 @@
 
 import React from "react";
 import InputOutlinedBottom from "./input/InputOutlinedBottom";
-import { LoginFormProps } from "@/types/registration";
+import { LoginFormProps } from "@/types/auth";
 
 const LoginForm = ({ info, handleChange }: LoginFormProps) => {
   // *** Email, password Regex 규칙 추가
