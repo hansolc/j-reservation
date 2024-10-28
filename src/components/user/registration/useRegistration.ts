@@ -1,6 +1,12 @@
 import { registrationByUserInfo } from "@/api";
-import handleApiCall from "@/utils";
+import handleApiCall from "@/utils/api";
 import { ChangeEvent, useState } from "react";
+
+interface CustomError {
+  status: number;
+  statusText: string;
+  message: string;
+}
 
 interface UserLoginInfoProps {
   email: string;
@@ -35,7 +41,11 @@ const useRegistration = () => {
       );
       console.log("registration success: ", res);
     } catch (error) {
-      console.error("registration failed: ", error);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if ((error as any).message) {
+        const { status, statusText, message } = error as CustomError;
+        setError(`${status}: ${statusText} ${message}`);
+      }
     }
   };
 

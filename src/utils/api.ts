@@ -10,12 +10,26 @@ const handleApiCall = async <T>(
   try {
     const res = await apiCall();
     if (!res.ok) {
-      throw new Error(`error occured: `);
+      const errJson = await res.json();
+      throw {
+        status: res.status,
+        statusText: res.statusText,
+        message: errJson,
+      };
     }
+
     const data = (await res.json()) as T;
     return data;
   } catch (error) {
-    setError((error as Error).message);
+    if (error instanceof Error) {
+      console.error(error);
+      setError("network error");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } else if ((error as any).message) {
+      throw error;
+    } else {
+      console.error(error);
+    }
   } finally {
     setLoading(false);
   }
