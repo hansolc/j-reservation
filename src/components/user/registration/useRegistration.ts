@@ -5,10 +5,12 @@ import { ChangeEvent, useCallback, useState } from "react";
 // import { login as loginApi } from "@/api/auth";
 import { AuthProps } from "@/types/auth";
 import { API_URL } from "@/constant";
+import { useRouter } from "next/navigation";
 
 const useRegistration = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const initialUserInfo = (): AuthProps => ({
     email: "",
@@ -65,6 +67,7 @@ const useRegistration = () => {
         const token = res.headers.get("Authorization");
         if (token) {
           localStorage.setItem("jwToken", token.split(" ")[1]);
+          router.push("/");
         }
       } else {
         const errJson = await res.json();

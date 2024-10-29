@@ -14,6 +14,7 @@ const ReservationManager = ({
   return (
     <div className="flex flex-col items-center gap-5">
       <ReservationForm
+        isLoggedIn={isLoggedIn}
         readonly={readonly}
         formData={formData}
         handleFormChange={isLoggedIn ? handleFormChange : undefined}

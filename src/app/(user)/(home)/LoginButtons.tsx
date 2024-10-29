@@ -16,7 +16,7 @@ const LoginButtons = () => {
       >
         시작하기
       </Button>
-      <Button
+      {/* <Button
         size="sm"
         color="kakao"
         isRadius
@@ -25,7 +25,7 @@ const LoginButtons = () => {
         }}
       >
         카카오 로그인
-      </Button>
+      </Button> */}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import "@root/globals.css";
+import { AuthProvider } from "@/components/common/AuthContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,7 +23,9 @@ export default function RootLayout({
       <body
         className={`${notoSansKr.className} antialiased max-w-[380px] min-w-[360px] m-auto h-screen border-2`}
       >
-        <main className="px-[14px] pt-20 h-full">{children}</main>
+        <AuthProvider>
+          <main className="px-[14px] pt-20 h-full">{children}</main>
+        </AuthProvider>
       </body>
     </html>
   );
