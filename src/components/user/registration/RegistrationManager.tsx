@@ -5,7 +5,7 @@ import LoginForm from "../LoginForm";
 import Button from "../button";
 import useRegistration from "./useRegistration";
 import { useRouter } from "next/navigation";
-import GlobalToast from "@/components/common/toast";
+import ErrorToast from "@/components/common/error/ErrorToast";
 
 const RegistrationManager = ({ type }: { type: "regis" | "login" }) => {
   const router = useRouter();
@@ -28,7 +28,7 @@ const RegistrationManager = ({ type }: { type: "regis" | "login" }) => {
 
   return (
     <>
-      <GlobalToast msg={error}></GlobalToast>
+      <ErrorToast />
       <form onSubmit={handleSubmit}>
         <div className="px-5">
           <LoginForm info={info} handleChange={handleInputChange} />
