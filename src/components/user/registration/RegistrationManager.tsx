@@ -6,24 +6,25 @@ import Button from "../button";
 import useRegistration from "./useRegistration";
 import { useRouter } from "next/navigation";
 import ErrorToast from "@/components/common/error/ErrorToast";
+import { useAuth } from "@/components/common/AuthContext";
 
 const RegistrationManager = ({ type }: { type: "regis" | "login" }) => {
   const router = useRouter();
+  const { userLogin } = useAuth();
 
-  const { info, handleInputChange, registration, login, error, loading } =
-    useRegistration();
+  const { info, handleInputChange, registration, loading } = useRegistration();
 
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
       if (type === "login") {
         // api login from useRegistration
-        login(info);
+        userLogin(info);
       } else {
         registration(info);
       }
     },
-    [type, login, registration, info]
+    [type, userLogin, registration, info]
   );
 
   return (

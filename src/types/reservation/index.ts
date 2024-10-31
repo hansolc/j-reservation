@@ -22,9 +22,19 @@ interface ReservationFormDataProps {
   dateTimeArray: Array<[string, string]>;
 }
 
+interface ServerReservationProps {
+  restaurant_link: string;
+  adult_count: number;
+  child_count: number;
+  primary_date_time: string;
+  secondary_date_time: string;
+  tertiary_date_time: string;
+}
+
 export type {
   ReservationKeys,
   ReservationManagerProps,
   ReservationFormProps,
   ReservationFormDataProps,
+  ServerReservationProps,
 };

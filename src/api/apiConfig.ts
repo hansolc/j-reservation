@@ -1,7 +1,20 @@
-const API_BASE_URL = "http://localhost:8080";
-
 const endpoint = {
-  login: `${API_BASE_URL}/login`,
+  // auth
+  login: `/login`,
+  registration: `/join`,
+  // reservation
+  createReservation: `/reservation/user`,
+  confirmReservation: `/reservation/confirm`,
+  getReservationUser: `/reservation/user`,
+  getReservationAdmin: `/reservation/all`,
+  updatereservationAdmin: `/reservation/update-status`,
+  // inquiry
+  getInquiresUser: `/inquiries/user`,
+  deleteInquiryUser: `/inquiries`,
+  createInquiryUser: `/inquiries/user`,
+  getAllInquiresAdmin: `/inquiries/all`,
+  // response
+  responseAdmin: `/inquiries/respond`,
 };
 
 export default endpoint;

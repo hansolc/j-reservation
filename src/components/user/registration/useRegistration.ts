@@ -4,8 +4,6 @@ import { handleApiCall } from "@/utils/api";
 import { ChangeEvent, useCallback, useState } from "react";
 // import { login as loginApi } from "@/api/auth";
 import { AuthProps } from "@/types/auth";
-import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "@/api/service/auth";
 
 const useRegistration = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -46,18 +44,10 @@ const useRegistration = () => {
     }
   };
 
-  // res headers값에 접근해야 되기 때문에 login의 경우 handleAPIcall을 사용하지 못함
-  // 해결 방안 필요
-  const login = useMutation({
-    mutationFn: ({ email, password }: AuthProps) =>
-      loginUser({ email, password }),
-  });
-
   return {
     info,
     handleInputChange,
     registration,
-    login: login.mutate,
     loading,
     error,
   };

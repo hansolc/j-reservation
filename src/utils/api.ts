@@ -63,4 +63,6 @@ const myFetch = {
     }),
 };
 
-export { handleApiCall, myFetch };
+const checkToken = () => localStorage.getItem("jwToken") ?? false;
+
+export { handleApiCall, myFetch, checkToken };

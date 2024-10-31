@@ -7,6 +7,11 @@ type APIErrorResponse = {
   data: string;
 };
 
+type APICustomErrorResponse = {
+  errorId: number | string;
+  errorMessage: string;
+};
+
 interface ErrorContextProps {
   error: string | null;
   updateError: (error: Error) => void;
@@ -27,6 +32,15 @@ export const ErrorProvider = ({ children }: { children: React.ReactNode }) => {
       setError(null);
       setTimeout(() => {
         setError(data);
+      }, 50);
+    } else if (
+      axios.isAxiosError<APICustomErrorResponse>(error) &&
+      error.response
+    ) {
+      const { errorId, errorMessage } = error.response.data;
+      setError(null);
+      setTimeout(() => {
+        setError(`${errorId}: ${errorMessage}`);
       }, 50);
     } else {
       setError(null);
