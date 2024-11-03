@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import "@root/globals.css";
+import { AuthProvider } from "@/components/common/AuthContext";
+import ReactQueryProvider from "@/components/common/ReactQueryProvider";
+import { ErrorProvider } from "@/components/common/error/ErrorContext";
+import { Toaster } from "react-hot-toast";
+import ErrorToast from "@/components/common/error/ErrorToast";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,7 +27,15 @@ export default function RootLayout({
       <body
         className={`${notoSansKr.className} antialiased max-w-[380px] min-w-[360px] m-auto h-screen border-2`}
       >
-        <main className="px-[14px] pt-20 h-full">{children}</main>
+        <ErrorProvider>
+          <ReactQueryProvider>
+            <AuthProvider>
+              <Toaster position="top-center" />
+              <ErrorToast />
+              <main className="px-[14px] pt-20 h-full">{children}</main>
+            </AuthProvider>
+          </ReactQueryProvider>
+        </ErrorProvider>
       </body>
     </html>
   );

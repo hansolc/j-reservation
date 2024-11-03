@@ -1,20 +1,22 @@
-import Button from "@/components/user/button";
-import ReservationManager from "@/components/user/reservation/ReservationManager";
-import Link from "next/link";
+import Section from "@/components/common/section";
+import Goback from "@/components/user/GoBack";
+import ReservationForm from "@/components/user/reservation/ReservationForm";
 import React from "react";
 
 const ReservationAddPage = ({ params }: { params: { cnt: number } }) => {
   const { cnt } = params;
   return (
-    <>
-      <div>{cnt}번째 예약</div>
-      <ReservationManager />
-      <Link href="/reservation/success">
+    <Section>
+      <Section.Text>
+        <Goback />
+      </Section.Text>
+      <ReservationForm controlable nth={cnt} />
+      {/* <Link href="/reservation/success">
         <Button color="primary" size="full">
-          확인
+          예약요청
         </Button>
-      </Link>
-    </>
+      </Link> */}
+    </Section>
   );
 };
 

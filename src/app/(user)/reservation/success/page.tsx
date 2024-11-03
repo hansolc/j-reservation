@@ -25,6 +25,7 @@ const ReservationSuccess = () => {
         <br />
         예약이 가능한지 확인 후 알려들리게요.
       </Section.Text>
+      {/* !!!! */}
       <Link
         href="/reservation/check"
         className="fixed max-w-[340px] bottom-8 w-full"

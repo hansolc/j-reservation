@@ -1,27 +1,11 @@
-"use client";
-
 import React from "react";
 import styles from "./page.module.css";
 import LoginButtons from "./(home)/LoginButtons";
 import FirstUserBanner from "@/components/user/FirstUserBanner";
 import HomeHeader from "@/components/user/HomeHeader";
-import ReservationManager from "@/components/user/reservation/ReservationManager";
-
-// interface UserInfoProps {
-//   reservationCnt?: number;
-// }
-
-// const getUserInfo = async (): Promise<UserInfoProps> => {
-//   // get userinfo api
-
-//   return {
-//     reservationCnt: 1
-//   }
-// }
+import ReservationForm from "@/components/user/reservation/ReservationForm";
 
 const UserLoginPage = () => {
-  // const userInfo = await getUserInfo();
-
   return (
     <div className="h-container">
       <HomeHeader>오마타세</HomeHeader>
@@ -38,7 +22,8 @@ const UserLoginPage = () => {
         </div>
       </section>
       <section className="mt-[-100px] z-40 relative px-1">
-        <ReservationManager />
+        {/* isAuthenticated 의존성 때문에 해당 페이지가 server component로의 역할을 못하고 있음 수정필요 */}
+        <ReservationForm controlable />
       </section>
       <section>
         <LoginButtons />

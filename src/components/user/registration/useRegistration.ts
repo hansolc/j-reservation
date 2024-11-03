@@ -1,49 +1,45 @@
-import { registrationByUserInfo } from "@/api";
-import handleApiCall from "@/utils";
-import { ChangeEvent, useState } from "react";
-
-interface UserLoginInfoProps {
-  email: string;
-  password: string;
-}
+import { regis } from "@/api/service/auth";
+import { ChangeEvent, useCallback, useState } from "react";
+import { AuthProps } from "@/types/auth";
+import { useMutation } from "@tanstack/react-query";
 
 const useRegistration = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const initialUserInfo = (): UserLoginInfoProps => ({
-    email: "",
+  const initialUserInfo = (): AuthProps => ({
+    username: "",
     password: "",
   });
 
-  const [info, setInfo] = useState<UserLoginInfoProps>(initialUserInfo);
+  const [info, setInfo] = useState<AuthProps>(initialUserInfo);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  // 이 로직은 부모 컴포넌트인 useRegistrationMaanger로 전달 후 다시 자식 컴포넌트에게
+  // 전달될 가능성이 높다. 따라서 최적화가 필요하다.
+  // e의 경우 매개변수로 항상 최신화된 값을 받는다. 따라서 deps에 넣을 필요가 없다.
+  const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setInfo((prevInfo) => ({
       ...prevInfo,
       [e.target.name]: value,
     }));
-  };
+  }, []);
 
-  const registration = async ({ email, password }: UserLoginInfoProps) => {
-    try {
-      const res = await handleApiCall(
-        () => registrationByUserInfo({ email, password }),
-        setLoading,
-        setError
-      );
-      console.log("registration success: ", res);
-    } catch (error) {
-      console.error("registration failed: ", error);
-    }
-  };
+  const { mutate: registration } = useMutation({
+    mutationFn: ({ username, password }: AuthProps) =>
+      regis({ role: "user", username, password }),
+    onSuccess: (res) => {
+      console.log("success: ", res);
+    },
+  });
 
-  const login = async ({}) => {
-    console.log("login");
+  return {
+    info,
+    handleInputChange,
+    registration,
+    loading,
+    error,
   };
-
-  return { info, handleInputChange, registration, login, loading, error };
 };
 
 export default useRegistration;

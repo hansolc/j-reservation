@@ -1,30 +1,47 @@
-type ReservationKeys = "googleLinks" | "adults" | "kids" | "dateTimeArray";
+type PositiveReservationStatus = "WAITING" | "AVAILABLE" | "CONFIRMED";
+type NegativeReservationStatus = "UNAVAILABLE" | "CANCELED";
+type ReservationStatus = PositiveReservationStatus & NegativeReservationStatus;
 
-interface ReservationManagerProps {
-  isLoggedIn?: boolean;
-  readonly?: boolean;
-}
-
-interface ReservationFormProps extends ReservationManagerProps {
-  formData: ReservationFormDataProps;
-  handleFormChange?: (
-    field: ReservationKeys,
-    e: React.ChangeEvent<HTMLInputElement>,
-    arrayIndex?: number,
-    innerIndex?: number
-  ) => void;
-}
-
-interface ReservationFormDataProps {
-  googleLinks: string;
+// Reservation Form
+interface FormInfoProps {
+  id: number;
+  link: string;
   adults: number;
   kids: number;
-  dateTimeArray: Array<[string, string]>;
+  status: ReservationStatus;
+  primaryDateTime: string;
+  secondaryDateTime?: string;
+  tertiaryDateTime?: string;
+}
+
+interface ReservationFormProps {
+  formInfo?: FormInfoProps;
+  controlable?: boolean;
+  readonly?: boolean;
+  nth?: number;
+}
+
+// ======================================================================
+interface ServerReservationProps {
+  restaurant_link: string;
+  adult_count: number;
+  child_count: number;
+  primary_date_time: string;
+  secondary_date_time?: string;
+  tertiary_date_time?: string;
+}
+
+interface ServerViewReservationProps extends ServerReservationProps {
+  reservationId: number;
+  status: ReservationStatus;
 }
 
 export type {
-  ReservationKeys,
-  ReservationManagerProps,
   ReservationFormProps,
-  ReservationFormDataProps,
+  ServerReservationProps,
+  ServerViewReservationProps,
+  FormInfoProps,
+  ReservationStatus,
+  PositiveReservationStatus,
+  NegativeReservationStatus,
 };

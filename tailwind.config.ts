@@ -17,6 +17,28 @@ const config: Config = {
       backgroundImage: {
         "home-img": "url('/assets/images/home_rest_img.png')",
       },
+      keyframes: {
+        fadein: {
+          "0%": {
+            opacity: "0.5",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
+        fadeout: {
+          "0%": {
+            opacity: "1",
+          },
+          "100%": {
+            opacity: "0",
+          },
+        },
+      },
+      animation: {
+        fadein: "fadein 0.5s",
+        fadeout: "fadeout 0.5s",
+      },
     },
   },
   plugins: [],

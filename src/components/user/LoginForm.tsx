@@ -2,7 +2,7 @@
 
 import React from "react";
 import InputOutlinedBottom from "./input/InputOutlinedBottom";
-import { LoginFormProps } from "@/types/registration";
+import { LoginFormProps } from "@/types/auth";
 
 const LoginForm = ({ info, handleChange }: LoginFormProps) => {
   // *** Email, password Regex 규칙 추가
@@ -13,9 +13,9 @@ const LoginForm = ({ info, handleChange }: LoginFormProps) => {
         label="이메일"
         type="text"
         placeholder="omatasae@example.com"
-        name="email"
+        name="username"
         handleInputChange={handleChange}
-        value={info.email}
+        value={info.username}
       />
       <InputOutlinedBottom
         label="비밀번호"
