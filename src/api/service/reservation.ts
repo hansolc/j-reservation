@@ -2,7 +2,10 @@ import { API_URL } from "@/constant";
 import { checkToken } from "@/utils/api";
 import axios from "axios";
 import endpoint from "../apiConfig";
-import { ServerReservationProps } from "@/types/reservation";
+import {
+  ServerReservationProps,
+  ServerViewReservationProps,
+} from "@/types/reservation";
 
 const reservationAxios = axios.create({ baseURL: `${API_URL}/api/` });
 reservationAxios.interceptors.request.use((req) => {
@@ -37,10 +40,13 @@ const confirmReservationBuUser = async (reservationId: number) => {
   );
 };
 
-const getReservationInfoByUser = async (userId: number) => {
-  return await adminReservationAxios.get(
+const getReservationInfoByUser = async (
+  userId: number
+): Promise<Array<ServerViewReservationProps>> => {
+  const res = await reservationAxios.get(
     `${endpoint.getReservationUser}/${userId}`
   );
+  return res.data;
 };
 
 const getAllReservationByAdmin = async () => {

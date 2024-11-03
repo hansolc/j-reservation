@@ -5,7 +5,6 @@ import LoginForm from "../LoginForm";
 import Button from "../button";
 import useRegistration from "./useRegistration";
 import { useRouter } from "next/navigation";
-import ErrorToast from "@/components/common/error/ErrorToast";
 import { useAuth } from "@/components/common/AuthContext";
 
 const RegistrationManager = ({ type }: { type: "regis" | "login" }) => {
@@ -29,7 +28,6 @@ const RegistrationManager = ({ type }: { type: "regis" | "login" }) => {
 
   return (
     <>
-      <ErrorToast />
       <form onSubmit={handleSubmit}>
         <div className="px-5">
           <LoginForm info={info} handleChange={handleInputChange} />

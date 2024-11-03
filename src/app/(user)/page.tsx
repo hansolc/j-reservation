@@ -1,19 +1,14 @@
-"use client";
-
 import React from "react";
 import styles from "./page.module.css";
 import LoginButtons from "./(home)/LoginButtons";
 import FirstUserBanner from "@/components/user/FirstUserBanner";
 import HomeHeader from "@/components/user/HomeHeader";
-import ReservationManager from "@/components/user/reservation/ReservationManager";
-import { useAuth } from "@/components/common/AuthContext";
+import ReservationForm from "@/components/user/reservation/ReservationForm";
 
 const UserLoginPage = () => {
-  const { isAuthenticated } = useAuth();
-
   return (
     <div className="h-container">
-      <HomeHeader isLoggedIn={isAuthenticated}>오마타세</HomeHeader>
+      <HomeHeader>오마타세</HomeHeader>
       <hr className={`border-[#DDDDDD] ${styles.force_ignore_padding}`} />
       <section>
         <FirstUserBanner />
@@ -27,13 +22,12 @@ const UserLoginPage = () => {
         </div>
       </section>
       <section className="mt-[-100px] z-40 relative px-1">
-        <ReservationManager isLoggedIn={isAuthenticated} />
+        {/* isAuthenticated 의존성 때문에 해당 페이지가 server component로의 역할을 못하고 있음 수정필요 */}
+        <ReservationForm controlable />
       </section>
-      {!isAuthenticated ? (
-        <section>
-          <LoginButtons />
-        </section>
-      ) : null}
+      <section>
+        <LoginButtons />
+      </section>
     </div>
   );
 };

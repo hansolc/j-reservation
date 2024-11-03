@@ -1,37 +1,154 @@
+"use client";
+
 import Form from "@/components/common/form";
-import React from "react";
-import { ReservationFormProps, ReservationKeys } from "@/types/reservation";
+import {
+  ReservationFormProps,
+  ReservationStatus,
+  ServerReservationProps,
+} from "@/types/reservation";
+import { seperateIsostring } from "@/utils/reservation";
+import React, { useCallback, useMemo, useState } from "react";
+import DateTimeUI from "./DateTimeUI";
+import Button from "../button";
+import useReservation from "./useReservation";
+import { useAuth } from "@/components/common/AuthContext";
+import { RESERVATION_STATUS } from "@/constant";
+import Badge from "@/components/common/badge";
 
 const ReservationForm = ({
-  readonly,
-  formData,
-  handleFormChange,
-  isLoggedIn,
+  formInfo = {
+    id: 0,
+    link: "",
+    adults: 0,
+    kids: 0,
+    primaryDateTime: "",
+    secondaryDateTime: "",
+    tertiaryDateTime: "",
+    status: "WAITING" as ReservationStatus,
+  },
+  controlable = false,
+  nth = 1,
 }: ReservationFormProps) => {
-  const { googleLinks, adults, kids, dateTimeArray } = formData;
+  const initialInfo = useMemo(() => {
+    return {
+      ...formInfo,
+      pDate: seperateIsostring(formInfo?.primaryDateTime).date,
+      pTime: seperateIsostring(formInfo?.primaryDateTime).time,
+      sDate: seperateIsostring(formInfo?.secondaryDateTime).date,
+      sTime: seperateIsostring(formInfo?.secondaryDateTime).time,
+      tDate: seperateIsostring(formInfo?.tertiaryDateTime).date,
+      tTime: seperateIsostring(formInfo?.tertiaryDateTime).time,
+    };
+  }, [formInfo]);
 
-  // curring
-  const handleChange = (field: ReservationKeys, idx1?: number, idx2?: number) =>
-    handleFormChange
-      ? (e: React.ChangeEvent<HTMLInputElement>) =>
-          handleFormChange(field, e, idx1, idx2)
-      : undefined;
+  const { isAuthenticated } = useAuth();
+  const { createReservation } = useReservation();
+  const [formData, setFormData] = useState(initialInfo);
+  const {
+    link,
+    adults,
+    kids,
+    pDate,
+    pTime,
+    sDate,
+    sTime,
+    tDate,
+    tTime,
+    status,
+  } = formData;
+
+  const isControllable = useMemo(
+    (): boolean => isAuthenticated && controlable,
+    [isAuthenticated, controlable]
+  );
+
+  const handleChange = useCallback((field: string) => {
+    return (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+
+      setFormData((prevState) => {
+        return {
+          ...prevState,
+          [field]: value,
+        };
+      });
+    };
+  }, []);
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const data: ServerReservationProps = {
+        restaurant_link: link,
+        adult_count: adults,
+        child_count: kids,
+        primary_date_time: pDate + "T" + pTime + ":00",
+        ...(sDate && sTime
+          ? { secondary_date_time: sDate + "T" + sTime + ":00" }
+          : {}),
+        // tDate와 tTime이 있는 경우에만 추가
+        ...(tDate && tTime
+          ? { tertiary_date_time: tDate + "T" + tTime + ":00" }
+          : {}),
+      };
+
+      createReservation(data);
+    },
+    [
+      link,
+      adults,
+      kids,
+      pDate,
+      pTime,
+      sDate,
+      sTime,
+      tDate,
+      tTime,
+      createReservation,
+    ]
+  );
+
+  const dateTimeFields: Array<{
+    date: string;
+    time: string;
+    dateField: string;
+    timeField: string;
+  }> = [
+    {
+      date: pDate,
+      time: pTime,
+      dateField: "pDate",
+      timeField: "pTime",
+    },
+    {
+      date: sDate,
+      time: sTime,
+      dateField: "sDate",
+      timeField: "sTime",
+    },
+    {
+      date: tDate,
+      time: tTime,
+      dateField: "tDate",
+      timeField: "tTime",
+    },
+  ];
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Header>
-        <p className="font-bold">1 번째 예약</p>
-        <div>예약 대기중</div>
+        <p className="font-bold">{`${nth} 번째 예약`}</p>
+        {!controlable && (
+          <Badge isRadius>{RESERVATION_STATUS[status || "WAITING"]}</Badge>
+        )}
       </Form.Header>
       <Form.FieldContainer>
         <Form.Input
           label="구글 지도 음식점 링크 공유"
           placeholder="https://maps.google.com"
-          value={googleLinks}
-          onChange={handleChange("googleLinks")}
-          name="googleLinks"
-          disabled={!handleFormChange || readonly}
-          readOnly={!handleFormChange}
+          value={link}
+          onChange={handleChange("link")}
+          disabled={!isControllable}
         ></Form.Input>
       </Form.FieldContainer>
       <Form.FieldContainer multiple>
@@ -41,42 +158,38 @@ const ReservationForm = ({
           seperate
           value={adults}
           onChange={handleChange("adults")}
-          disabled={!handleFormChange || readonly}
-          readOnly={!handleFormChange}
+          disabled={!isControllable}
         />
         <Form.Input
           label="어린이"
           placeholder="0"
           value={kids}
           onChange={handleChange("kids")}
-          disabled={!handleFormChange || readonly}
-          readOnly={!handleFormChange}
+          disabled={!isControllable}
         />
       </Form.FieldContainer>
       <hr className="border-[#DDDDDD] my-4" />
-      {isLoggedIn
-        ? dateTimeArray.map(([date, time], idx) => {
-            return (
-              <Form.FieldContainer multiple key={`temporal_idx_${idx}`}>
-                <Form.Input
-                  label="날짜"
-                  type="date"
-                  seperate
-                  value={date}
-                  onChange={handleChange("dateTimeArray", idx, 0)}
-                  disabled={!handleFormChange || readonly}
-                />
-                <Form.Input
-                  label="시간"
-                  type="time"
-                  value={time}
-                  onChange={handleChange("dateTimeArray", idx, 1)}
-                  disabled={!handleFormChange || readonly}
-                />
-              </Form.FieldContainer>
-            );
-          })
-        : null}
+      {dateTimeFields
+        .filter((obj) => {
+          return isControllable || (!isControllable && obj.date);
+        })
+        .map((field, idx) => {
+          return (
+            <DateTimeUI
+              key={`date-time-array-${idx}`}
+              date={field.date}
+              time={field.time}
+              onDateChange={handleChange(field.dateField)}
+              onTimeChange={handleChange(field.timeField)}
+              disabled={!isControllable}
+            />
+          );
+        })}
+      {isControllable && (
+        <Button color="primary" size="sm" isRadius type="submit">
+          예약하기
+        </Button>
+      )}
     </Form>
   );
 };

@@ -13,9 +13,9 @@ const LoginForm = ({ info, handleChange }: LoginFormProps) => {
         label="이메일"
         type="text"
         placeholder="omatasae@example.com"
-        name="email"
+        name="username"
         handleInputChange={handleChange}
-        value={info.email}
+        value={info.username}
       />
       <InputOutlinedBottom
         label="비밀번호"

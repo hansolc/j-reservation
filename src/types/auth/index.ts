@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 
 interface AuthProps {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -10,4 +10,8 @@ interface LoginFormProps {
   handleChange: (T: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export type { AuthProps, LoginFormProps };
+interface RegistrationSubmit extends AuthProps {
+  role: "admin" | "user";
+}
+
+export type { AuthProps, LoginFormProps, RegistrationSubmit };

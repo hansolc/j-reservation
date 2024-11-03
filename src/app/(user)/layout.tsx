@@ -5,6 +5,7 @@ import { AuthProvider } from "@/components/common/AuthContext";
 import ReactQueryProvider from "@/components/common/ReactQueryProvider";
 import { ErrorProvider } from "@/components/common/error/ErrorContext";
 import { Toaster } from "react-hot-toast";
+import ErrorToast from "@/components/common/error/ErrorToast";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -30,6 +31,7 @@ export default function RootLayout({
           <ReactQueryProvider>
             <AuthProvider>
               <Toaster position="top-center" />
+              <ErrorToast />
               <main className="px-[14px] pt-20 h-full">{children}</main>
             </AuthProvider>
           </ReactQueryProvider>

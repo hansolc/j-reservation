@@ -1,16 +1,14 @@
-import { registrationByUserInfo } from "@/api/auth";
-import { CustomError } from "@/types/error";
-import { handleApiCall } from "@/utils/api";
+import { regis } from "@/api/service/auth";
 import { ChangeEvent, useCallback, useState } from "react";
-// import { login as loginApi } from "@/api/auth";
 import { AuthProps } from "@/types/auth";
+import { useMutation } from "@tanstack/react-query";
 
 const useRegistration = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const initialUserInfo = (): AuthProps => ({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -27,22 +25,13 @@ const useRegistration = () => {
     }));
   }, []);
 
-  const registration = async ({ email, password }: AuthProps) => {
-    try {
-      const res = await handleApiCall(
-        () => registrationByUserInfo({ email, password }),
-        setLoading,
-        setError
-      );
-      console.log("registration success: ", res);
-    } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if ((error as any).message) {
-        const { status, statusText, message } = error as CustomError;
-        setError(`${status}: ${statusText} ${message}`);
-      }
-    }
-  };
+  const { mutate: registration } = useMutation({
+    mutationFn: ({ username, password }: AuthProps) =>
+      regis({ role: "user", username, password }),
+    onSuccess: (res) => {
+      console.log("success: ", res);
+    },
+  });
 
   return {
     info,

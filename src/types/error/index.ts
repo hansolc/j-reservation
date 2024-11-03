@@ -1,7 +1,11 @@
-interface CustomError {
-  status: number;
-  statusText: string;
-  message: string;
+type APICustomErrorResponse = {
+  errorId: number | string;
+  errorMessage: string;
+};
+
+interface ErrorContextProps {
+  error: string | null;
+  updateError: (error: Error) => void;
 }
 
-export type { CustomError };
+export type { APICustomErrorResponse, ErrorContextProps };
