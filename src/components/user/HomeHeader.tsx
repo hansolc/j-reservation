@@ -26,7 +26,10 @@ const HomeHeader = ({ children }: HomeHeaderProps) => {
     <header className="flex justify-between items-center">
       <p className="text-2xl font-extrabold">{children}</p>
       {isAuthenticated && (
-        <div className="flex gap-4 font-bold" onClick={(e) => handleClick(e)}>
+        <div
+          className="flex gap-4 font-bold cursor-pointer"
+          onClick={(e) => handleClick(e)}
+        >
           <p id="request">문의하기</p>
           <p id="check">예약확인</p>
         </div>
