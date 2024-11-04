@@ -45,7 +45,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const { userId }: { userId: number } = jwtDecode(
           headers["authorization"]
         );
-        console.log(userId);
         setUserId(userId);
         setIsAuthenticated(true);
         router.push("/");
