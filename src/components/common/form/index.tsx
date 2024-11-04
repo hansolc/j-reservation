@@ -69,6 +69,7 @@ const FormInput = ({
         })}
         type={type}
         placeholder={placeholder}
+        name={name}
         {...rest}
       />
     </div>

@@ -14,6 +14,7 @@ import useReservation from "./useReservation";
 import { useAuth } from "@/components/common/AuthContext";
 import { RESERVATION_STATUS } from "@/constant";
 import Badge from "@/components/common/badge";
+import UpperFormList from "./side-components/UpperFormList";
 
 const ReservationForm = ({
   formInfo = {
@@ -62,18 +63,30 @@ const ReservationForm = ({
     [isAuthenticated, controlable]
   );
 
-  const handleChange = useCallback((field: string) => {
-    return (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { value } = e.target;
+  // const handleChange = useCallback((field: string) => {
+  //   return (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     const { value } = e.target;
 
-      setFormData((prevState) => {
-        return {
-          ...prevState,
-          [field]: value,
-        };
-      });
-    };
-  }, []);
+  //     setFormData((prevState) => {
+  //       return {
+  //         ...prevState,
+  //         [field]: value,
+  //       };
+  //     });
+  //   };
+  // }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
+  };
+
+  console.log(formData);
 
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -142,34 +155,17 @@ const ReservationForm = ({
           <Badge isRadius>{RESERVATION_STATUS[status || "WAITING"]}</Badge>
         )}
       </Form.Header>
-      <Form.FieldContainer>
-        <Form.Input
-          label="구글 지도 음식점 링크 공유"
-          placeholder="https://maps.google.com"
-          value={link}
-          onChange={handleChange("link")}
-          disabled={!isControllable}
-        ></Form.Input>
-      </Form.FieldContainer>
-      <Form.FieldContainer multiple>
-        <Form.Input
-          label="성인"
-          placeholder="0"
-          seperate
-          value={adults}
-          onChange={handleChange("adults")}
-          disabled={!isControllable}
-        />
-        <Form.Input
-          label="어린이"
-          placeholder="0"
-          value={kids}
-          onChange={handleChange("kids")}
-          disabled={!isControllable}
-        />
-      </Form.FieldContainer>
+      <UpperFormList
+        fieldInfo={{
+          link: link,
+          adults: adults,
+          kids: kids,
+          isControllable: isControllable,
+        }}
+        handleChange={handleChange}
+      />
       <hr className="border-[#DDDDDD] my-4" />
-      {dateTimeFields
+      {/* {dateTimeFields
         .filter((obj) => {
           return isControllable || (!isControllable && obj.date);
         })
@@ -184,7 +180,7 @@ const ReservationForm = ({
               disabled={!isControllable}
             />
           );
-        })}
+        })} */}
       {isControllable && (
         <Button color="primary" size="sm" isRadius type="submit">
           예약하기
