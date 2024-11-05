@@ -12,6 +12,13 @@ interface FormInfoProps {
   primaryDateTime: string;
   secondaryDateTime?: string;
   tertiaryDateTime?: string;
+  availableDateTime?: string;
+}
+
+interface ReservationAdminData extends FormInfoProps {
+  createdAt: string;
+  userId: number;
+  username: string;
 }
 
 interface ReservationFormProps {
@@ -34,6 +41,13 @@ interface ServerReservationProps {
 interface ServerViewReservationProps extends ServerReservationProps {
   reservationId: number;
   status: ReservationStatus;
+  available_date_time?: string;
+}
+
+interface ServerViewAdminReservationProps extends ServerViewReservationProps {
+  createdAt: string;
+  userId: number;
+  username: string;
 }
 
 export type {
@@ -44,4 +58,6 @@ export type {
   ReservationStatus,
   PositiveReservationStatus,
   NegativeReservationStatus,
+  ServerViewAdminReservationProps,
+  ReservationAdminData,
 };

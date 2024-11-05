@@ -1,9 +1,10 @@
 import { API_URL } from "@/constant";
 import { checkToken } from "@/utils/api";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import endpoint from "../apiConfig";
 import {
   ServerReservationProps,
+  ServerViewAdminReservationProps,
   ServerViewReservationProps,
 } from "@/types/reservation";
 
@@ -49,7 +50,9 @@ const getReservationInfoByUser = async (
   return res.data;
 };
 
-const getAllReservationByAdmin = async () => {
+const getAllReservationByAdmin = async (): Promise<
+  Array<ServerViewAdminReservationProps>
+> => {
   return await adminReservationAxios.get(`${endpoint.getReservationAdmin}`);
 };
 

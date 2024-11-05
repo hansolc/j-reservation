@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUserId(userId);
         setIsAuthenticated(true);
         if (role === "ROLE_USER") router.push("/");
-        else router.push("/admin/board");
+        else router.push("/admin/board?category=reservation");
       } else {
         console.log("something wrong");
       }
