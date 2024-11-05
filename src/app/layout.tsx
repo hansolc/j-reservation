@@ -23,8 +23,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="antialiased max-w-[380px] min-w-[360px] m-auto border-2 px-[14px] pt-20 h-full">
-      {children}
-    </main>
+    <html lang="en">
+      <body className={notoSansKr.className}>
+        <ErrorProvider>
+          <ReactQueryProvider>
+            <AuthProvider>
+              <Toaster position="top-center" />
+              <ErrorToast />
+              {children}
+            </AuthProvider>
+          </ReactQueryProvider>
+        </ErrorProvider>
+      </body>
+    </html>
   );
 }

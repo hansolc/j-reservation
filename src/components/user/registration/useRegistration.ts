@@ -1,6 +1,6 @@
 import { regis } from "@/api/service/auth";
 import { ChangeEvent, useCallback, useState } from "react";
-import { AuthProps } from "@/types/auth";
+import { AuthProps, RegistrationSubmit } from "@/types/auth";
 import { useMutation } from "@tanstack/react-query";
 
 const useRegistration = () => {
@@ -26,10 +26,11 @@ const useRegistration = () => {
   }, []);
 
   const { mutate: registration } = useMutation({
-    mutationFn: ({ username, password }: AuthProps) =>
-      regis({ role: "user", username, password }),
+    mutationFn: ({ username, password, role }: RegistrationSubmit) =>
+      regis({ role: role, username, password }),
     onSuccess: (res) => {
       console.log("success: ", res);
+      // decode jwToken and redirect by role value
     },
   });
 
