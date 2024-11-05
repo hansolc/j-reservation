@@ -2,8 +2,10 @@ import { regis } from "@/api/service/auth";
 import { ChangeEvent, useCallback, useState } from "react";
 import { AuthProps, RegistrationSubmit } from "@/types/auth";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 const useRegistration = () => {
+  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,9 +30,11 @@ const useRegistration = () => {
   const { mutate: registration } = useMutation({
     mutationFn: ({ username, password, role }: RegistrationSubmit) =>
       regis({ role: role, username, password }),
-    onSuccess: (res) => {
+    onSuccess: ({ res, role }) => {
       console.log("success: ", res);
       // decode jwToken and redirect by role value
+      if (role === "user") router.push("/login");
+      else router.push("/admin");
     },
   });
 

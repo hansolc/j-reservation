@@ -1,6 +1,6 @@
 import { AuthProps, RegistrationSubmit } from "@/types/auth";
 import endpoint from "../apiConfig";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { API_URL } from "@/constant";
 
 const authAxios = axios.create({ baseURL: API_URL });
@@ -13,12 +13,16 @@ const loginUser = async ({ username, password }: AuthProps) => {
   return res;
 };
 
-const regis = async ({ role, username, password }: RegistrationSubmit) => {
+const regis = async ({
+  role,
+  username,
+  password,
+}: RegistrationSubmit): Promise<{ res: AxiosResponse; role: string }> => {
   const data = new FormData();
   data.append("username", username);
   data.append("password", password);
   const res = await authAxios.post(`${endpoint.registration}/${role}`, data);
-  return res.data;
+  return { res: res.data, role };
 };
 
 export { loginUser, regis };
