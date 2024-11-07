@@ -15,6 +15,11 @@ const ReactQueryProvider = ({ children }: PropsWithChildren) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 10000,
+          },
+        },
         queryCache: new QueryCache({
           onError: (error: Error) => updateError(error),
         }),

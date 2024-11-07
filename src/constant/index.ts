@@ -22,6 +22,7 @@ const RESERVATION_STATUS: Record<ReservationStatus, string> = {
 const BACKGROUND_COLOR_TEXT_MAPPING: Record<BackgroundColorKeys, string> = {
   primary: "bg-primary text-white",
   kakao: "bg-kakao text-black",
+  warning: "bg-warn text-white",
 };
 
 export {

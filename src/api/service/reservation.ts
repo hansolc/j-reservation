@@ -4,6 +4,7 @@ import axios, { AxiosResponse } from "axios";
 import endpoint from "../apiConfig";
 import {
   ServerReservationProps,
+  ServerUpdateReservationProps,
   ServerViewAdminReservationProps,
   ServerViewReservationProps,
 } from "@/types/reservation";
@@ -56,8 +57,13 @@ const getAllReservationByAdmin = async (): Promise<
   return await adminReservationAxios.get(`${endpoint.getReservationAdmin}`);
 };
 
-const updateReservationByAdmin = async () => {
-  return await adminReservationAxios.post(`${endpoint.updatereservationAdmin}`);
+const updateReservationByAdmin = async (
+  formData: ServerUpdateReservationProps
+): Promise<string> => {
+  return await adminReservationAxios.post(
+    `${endpoint.updatereservationAdmin}`,
+    formData
+  );
 };
 
 export {

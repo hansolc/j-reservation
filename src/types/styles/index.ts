@@ -1,3 +1,3 @@
-type BackgroundColorKeys = "primary" | "kakao";
+type BackgroundColorKeys = "primary" | "kakao" | "warning";
 
 export type { BackgroundColorKeys };

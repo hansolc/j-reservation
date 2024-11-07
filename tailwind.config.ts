@@ -13,6 +13,8 @@ const config: Config = {
         foreground: "var(--foreground)",
         primary: "#007AFF",
         kakao: "#F9E000",
+        warn: "#FF3B47",
+        grey: "#D5D5D5",
       },
       backgroundImage: {
         "home-img": "url('/assets/images/home_rest_img.png')",
