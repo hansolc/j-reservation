@@ -19,7 +19,10 @@ const adminInquiryAxios = axios.create({
 });
 
 adminInquiryAxios.interceptors.request.use((req) => {
-  req.headers.Authorization = checkToken();
+  const token = checkToken();
+  if (token) {
+    req.headers.Authorization = checkToken();
+  }
   return req;
 });
 
@@ -40,7 +43,7 @@ const deleteInquiresByUser = async (userId: number) => {
 };
 
 const getAllInquiresByAdmin = async () => {
-  return await adminInquiryAxios.get(`${endpoint}`);
+  return await adminInquiryAxios.get(`${endpoint.getAllInquiresAdmin}`);
 };
 
 const responseInquiryByAdmin = async (inquiryId: number) => {
