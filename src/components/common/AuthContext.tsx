@@ -1,7 +1,7 @@
 "use client";
 
 import { loginUser } from "@/api/service/auth";
-import { AuthProps } from "@/types/auth";
+import { AuthProps, RegistrationSubmit } from "@/types/auth";
 import { useMutation } from "@tanstack/react-query";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -42,13 +42,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const headers = res.headers;
       if (headers instanceof AxiosHeaders && headers.has("authorization")) {
         localStorage.setItem("jwToken", headers["authorization"]);
-        const { userId }: { userId: number } = jwtDecode(
+        const {
+          userId,
+          role,
+        }: { userId: number; role: "ROLE_USER" | "ROLE_ADMIN" } = jwtDecode(
           headers["authorization"]
         );
-        console.log(userId);
         setUserId(userId);
         setIsAuthenticated(true);
-        router.push("/");
+        if (role === "ROLE_USER") router.push("/");
+        else router.push("/admin/board?category=reservation");
       } else {
         console.log("something wrong");
       }

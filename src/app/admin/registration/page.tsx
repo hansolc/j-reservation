@@ -2,7 +2,7 @@ import Section from "@/components/common/section";
 import React from "react";
 import ClientComponent from "./ClientComponent";
 
-const AdminHomePage = () => {
+const AdminRegistrationPage = () => {
   return (
     <Section className="flex flex-col items-center pt-40 max-w-[480px] m-auto">
       <Section.Text fontSize={50} bold>
@@ -13,4 +13,4 @@ const AdminHomePage = () => {
   );
 };
 
-export default AdminHomePage;
+export default AdminRegistrationPage;

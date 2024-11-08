@@ -20,7 +20,11 @@ const RegistrationManager = ({ type }: { type: "regis" | "login" }) => {
         // api login from useRegistration
         userLogin(info);
       } else {
-        registration(info);
+        const temp = {
+          ...info,
+          role: "user",
+        };
+        registration(temp);
       }
     },
     [type, userLogin, registration, info]

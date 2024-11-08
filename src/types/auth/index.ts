@@ -10,8 +10,9 @@ interface LoginFormProps {
   handleChange: (T: ChangeEvent<HTMLInputElement>) => void;
 }
 
+// need to change role to "admin" | "user"
 interface RegistrationSubmit extends AuthProps {
-  role: "admin" | "user";
+  role: string;
 }
 
 export type { AuthProps, LoginFormProps, RegistrationSubmit };

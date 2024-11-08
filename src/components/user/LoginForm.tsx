@@ -8,7 +8,7 @@ const LoginForm = ({ info, handleChange }: LoginFormProps) => {
   // *** Email, password Regex 규칙 추가
 
   return (
-    <div className="flex flex-col gap-8 pt-8">
+    <div className="flex flex-col gap-8 pt-8 w-full">
       <InputOutlinedBottom
         label="이메일"
         type="text"
