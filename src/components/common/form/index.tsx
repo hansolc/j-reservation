@@ -1,5 +1,7 @@
 import React, { ReactNode } from "react";
 import cls from "classnames";
+import AbsoluteIcon from "../AbsoluteIcon";
+import CheckIcon from "@/components/user/CheckIcon";
 
 interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
   children: ReactNode;
@@ -12,6 +14,7 @@ interface FormHeaderProps {
 interface FormFieldContainerProps {
   children: ReactNode;
   multiple?: boolean;
+  isSelectedTime?: boolean;
 }
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -78,18 +81,30 @@ const FormInput = ({
 const FormFieldContainer = ({
   children,
   multiple = false,
+  isSelectedTime = false,
 }: FormFieldContainerProps) => {
   return (
-    <div
-      className={cls(
-        "border border-[#717171] rounded-2xl h-14 px-3 py-2 my-2",
-        {
-          "flex ": multiple,
-        }
+    <>
+      {isSelectedTime && (
+        <AbsoluteIcon
+          Icon={<CheckIcon />}
+          customClassName="top-[5px] right-[-5px]"
+        />
       )}
-    >
-      {children}
-    </div>
+      <div
+        className={cls(
+          "border border-[#717171] rounded-2xl h-14 px-3 py-2 my-2",
+          {
+            "flex ": multiple,
+          },
+          {
+            "border-primary border-2": isSelectedTime,
+          }
+        )}
+      >
+        {children}
+      </div>
+    </>
   );
 };
 

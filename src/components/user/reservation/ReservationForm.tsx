@@ -6,7 +6,7 @@ import {
   ReservationStatus,
   ServerReservationProps,
 } from "@/types/reservation";
-import { seperateIsostring } from "@/utils/reservation";
+import { dateAndTimeToIsostring, seperateIsostring } from "@/utils/reservation";
 import React, { useCallback, useMemo, useState } from "react";
 import DateTimeUI from "./DateTimeUI";
 import Button from "../button";
@@ -55,6 +55,7 @@ const ReservationForm = ({
     tDate,
     tTime,
     status,
+    availableDateTime,
   } = formData;
 
   const isControllable = useMemo(
@@ -176,12 +177,16 @@ const ReservationForm = ({
         .map((field, idx) => {
           return (
             <DateTimeUI
-              key={`date-time-array-${idx}`}
+              key={`date_time_array_${link}_${field.time}`}
               date={field.date}
               time={field.time}
               onDateChange={handleChange(field.dateField)}
               onTimeChange={handleChange(field.timeField)}
               disabled={!isControllable}
+              isSelectedTime={
+                dateAndTimeToIsostring(field.date, field.time) ===
+                availableDateTime
+              }
             />
           );
         })}

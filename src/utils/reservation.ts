@@ -48,9 +48,14 @@ const isostringToDateTime = (str: string) => {
   }${date.getMinutes()}`;
 };
 
+const dateAndTimeToIsostring = (date: string, time: string) => {
+  return `${date}T${time}`;
+};
+
 export {
   seperateIsostring,
   getBadgeColor,
   pickReservationInfo,
   isostringToDateTime,
+  dateAndTimeToIsostring,
 };

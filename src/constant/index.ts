@@ -13,7 +13,7 @@ const ErrorCode = {
 
 const RESERVATION_STATUS: Record<ReservationStatus, string> = {
   WAITING: "예약 대기중",
-  AVAILABLE: "예약 가능",
+  AVAILABLE: "확정 대기중",
   UNAVAILABLE: "예약 불가능",
   CONFIRMED: "예약 확정",
   CANCELED: "예약 포기",
