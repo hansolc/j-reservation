@@ -2,6 +2,10 @@ import { API_URL } from "@/constant";
 import { checkToken } from "@/utils/api";
 import axios from "axios";
 import endpoint from "../apiConfig";
+import {
+  ServerFetchRequestProps,
+  ServerPostRequestProps,
+} from "@/types/request";
 
 const inquiryAxios = axios.create({
   baseURL: `${API_URL}/api/`,
@@ -30,16 +34,26 @@ adminInquiryAxios.interceptors.response.use((res) => res.data);
 
 inquiryAxios.interceptors.response.use((res) => res.data);
 
-const getInquiriesByUser = async (userId: number) => {
+const getInquiriesByUser = async (
+  userId: number
+): Promise<Array<ServerFetchRequestProps>> => {
   return await inquiryAxios.get(`${endpoint.getInquiresUser}/${userId}`);
 };
 
-const createInquiryByUser = async (userId: number) => {
-  return await inquiryAxios.post(`${endpoint.createInquiryUser}/${userId}`);
+const createInquiryByUser = async (
+  userId: number,
+  inquiryInfo: ServerPostRequestProps
+): Promise<string> => {
+  return await inquiryAxios.post(
+    `${endpoint.createInquiryUser}/${userId}`,
+    inquiryInfo
+  );
 };
 
-const deleteInquiresByUser = async (userId: number) => {
-  return await inquiryAxios.delete(`${endpoint.deleteInquiryUser}/${userId}`);
+const deleteInquiresByUser = async (inquiryId: number): Promise<string> => {
+  return await inquiryAxios.delete(
+    `${endpoint.deleteInquiryUser}/${inquiryId}`
+  );
 };
 
 const getAllInquiresByAdmin = async () => {
