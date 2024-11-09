@@ -7,9 +7,22 @@ type AbsolutePosition =
   | "bottom-right"
   | "bottom-left";
 
-type AbsoluteIconProps = {
+interface AbsoluteIconPropsBase extends React.HTMLAttributes<HTMLDivElement> {
   Icon: React.ReactNode;
-} & ({ position: AbsolutePosition } | { customClassName: string });
+  className?: string;
+}
+
+interface AbsoluteIconPropsPosition extends AbsoluteIconPropsBase {
+  position: AbsolutePosition;
+}
+
+interface AbsoluteIconPropsCustomClassName extends AbsoluteIconPropsBase {
+  customClassName: string;
+}
+
+type AbsoluteIconProps =
+  | AbsoluteIconPropsPosition
+  | AbsoluteIconPropsCustomClassName;
 
 const POSITION_MAPPED: Record<AbsolutePosition, string> = {
   "top-right": "top-0 right-0",
@@ -18,8 +31,8 @@ const POSITION_MAPPED: Record<AbsolutePosition, string> = {
   "bottom-left": "bottom-0 left-0",
 };
 
-const AbsoluteIcon = ({ Icon, ...props }: AbsoluteIconProps) => {
-  let absIconClassNames = "absolute";
+const AbsoluteIcon = ({ Icon, className, ...props }: AbsoluteIconProps) => {
+  let absIconClassNames = `absolute ${className}`;
 
   if ("position" in props) {
     absIconClassNames = cls(absIconClassNames, POSITION_MAPPED[props.position]);
