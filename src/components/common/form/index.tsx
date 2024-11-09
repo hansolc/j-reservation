@@ -32,11 +32,15 @@ type FormComponentType = React.FunctionComponent<FormProps> & {
   FieldContainer: React.FunctionComponent<FormFieldContainerProps>;
 };
 
-const Form: FormComponentType = ({ children, ...rest }: FormProps) => {
+const Form: FormComponentType = ({
+  children,
+  className,
+  ...rest
+}: FormProps) => {
   return (
     <form
       action=""
-      className="border rounded-lg px-3 py-7 shadow-md shadow-[#00000040] bg-white"
+      className={`border rounded-lg px-3 py-7 shadow-md shadow-[#00000040] bg-white ${className}`}
       {...rest}
     >
       {children}
