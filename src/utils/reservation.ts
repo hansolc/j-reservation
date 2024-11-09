@@ -15,12 +15,8 @@ const seperateIsostring = (dateTime?: string) => {
 };
 
 const getBadgeColor = (status: ReservationStatus) => {
-  const posArray: PositiveReservationStatus[] = [
-    "WAITING",
-    "AVAILABLE",
-    "CONFIRMED",
-  ];
-  const negArray: NegativeReservationStatus[] = ["CANCELED", "UNAVAILABLE"];
+  const posArray: ReservationStatus[] = ["WAITING", "AVAILABLE", "CONFIRMED"];
+  const negArray: ReservationStatus[] = ["CANCELED", "UNAVAILABLE"];
 
   if (posArray.includes(status)) return "primary";
   else if (negArray.includes(status)) return "warning";
