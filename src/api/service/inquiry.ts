@@ -3,6 +3,7 @@ import { checkToken } from "@/utils/api";
 import axios from "axios";
 import endpoint from "../apiConfig";
 import {
+  ServerAdminFetchRequestProps,
   ServerFetchRequestProps,
   ServerPostRequestProps,
 } from "@/types/request";
@@ -56,12 +57,21 @@ const deleteInquiresByUser = async (inquiryId: number): Promise<string> => {
   );
 };
 
-const getAllInquiresByAdmin = async () => {
-  return await adminInquiryAxios.get(`${endpoint.getAllInquiresAdmin}`);
+const getAllInquiresByAdmin = async (): Promise<
+  Array<ServerAdminFetchRequestProps>
+> => {
+  const res = await adminInquiryAxios.get(`${endpoint.getAllInquiresAdmin}`);
+  return res.data;
 };
 
-const responseInquiryByAdmin = async (inquiryId: number) => {
-  return await adminInquiryAxios.post(`${endpoint.responseAdmin}/${inquiryId}`);
+const responseInquiryByAdmin = async (
+  inquiryId: number,
+  responseInfo: { responseContent: string }
+): Promise<ServerAdminFetchRequestProps & { responseContent: string }> => {
+  return await adminInquiryAxios.post(
+    `${endpoint.responseAdmin}/${inquiryId}`,
+    responseInfo
+  );
 };
 
 export {
