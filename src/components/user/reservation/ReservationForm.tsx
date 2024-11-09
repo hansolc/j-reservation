@@ -2,11 +2,16 @@
 
 import Form from "@/components/common/form";
 import {
+  FormInfoProps,
   ReservationFormProps,
   ReservationStatus,
   ServerReservationProps,
 } from "@/types/reservation";
-import { seperateIsostring } from "@/utils/reservation";
+import {
+  dateAndTimeToIsostring,
+  isostringToDateTime,
+  seperateIsostring,
+} from "@/utils/reservation";
 import React, { useCallback, useMemo, useState } from "react";
 import DateTimeUI from "./DateTimeUI";
 import Button from "../button";
@@ -14,6 +19,10 @@ import useReservation from "./useReservation";
 import { useAuth } from "@/components/common/AuthContext";
 import { RESERVATION_STATUS } from "@/constant";
 import Badge from "@/components/common/badge";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import useUserPostReservation from "../hooks/useUserPostReservation";
+import ReservationConfirmButton from "./ReservationConfirmButton";
 
 const ReservationForm = ({
   formInfo = {
@@ -55,6 +64,7 @@ const ReservationForm = ({
     tDate,
     tTime,
     status,
+    availableDateTime,
   } = formData;
 
   const isControllable = useMemo(
@@ -135,7 +145,12 @@ const ReservationForm = ({
   ];
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form
+      onSubmit={handleSubmit}
+      className={`mb-10 ${
+        status === "CONFIRMED" && "border-primary border-2"
+      } ${status === "CANCELED" && "border-warn border-2"}`}
+    >
       <Form.Header>
         <p className="font-bold">{`${nth} 번째 예약`}</p>
         {!controlable && (
@@ -176,15 +191,26 @@ const ReservationForm = ({
         .map((field, idx) => {
           return (
             <DateTimeUI
-              key={`date-time-array-${idx}`}
+              // must change idx => uuid by "uuid" {v4}
+              key={`date_time_array_${link}_${field.time}_${idx + 1}`}
               date={field.date}
               time={field.time}
               onDateChange={handleChange(field.dateField)}
               onTimeChange={handleChange(field.timeField)}
               disabled={!isControllable}
+              isSelectedTime={
+                dateAndTimeToIsostring(field.date, field.time) ===
+                availableDateTime
+              }
             />
           );
         })}
+      <ReservationConfirmButton
+        formInfo={formInfo}
+        status={status}
+        nth={nth}
+        dateTime={availableDateTime ?? ""}
+      />
       {isControllable && (
         <Button color="primary" size="sm" isRadius type="submit">
           예약하기

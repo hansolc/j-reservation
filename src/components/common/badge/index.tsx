@@ -18,6 +18,7 @@ const Badge = ({
 }: BadgeProps) => {
   const badgeCls = cls(
     BACKGROUND_COLOR_TEXT_MAPPING[color],
+    // "bg-warn",
     {
       "rounded-[15px]": isRadius,
     },
