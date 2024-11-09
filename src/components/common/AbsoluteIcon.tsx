@@ -10,6 +10,7 @@ type AbsolutePosition =
 interface AbsoluteIconPropsBase extends React.HTMLAttributes<HTMLDivElement> {
   Icon: React.ReactNode;
   className?: string;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 interface AbsoluteIconPropsPosition extends AbsoluteIconPropsBase {
@@ -31,7 +32,12 @@ const POSITION_MAPPED: Record<AbsolutePosition, string> = {
   "bottom-left": "bottom-0 left-0",
 };
 
-const AbsoluteIcon = ({ Icon, className, ...props }: AbsoluteIconProps) => {
+const AbsoluteIcon = ({
+  Icon,
+  className,
+  onClick,
+  ...props
+}: AbsoluteIconProps) => {
   let absIconClassNames = `absolute ${className}`;
 
   if ("position" in props) {
@@ -41,7 +47,9 @@ const AbsoluteIcon = ({ Icon, className, ...props }: AbsoluteIconProps) => {
   }
   return (
     <div className={cls("relative")}>
-      <div className={absIconClassNames}>{Icon}</div>
+      <div className={absIconClassNames} onClick={onClick}>
+        {Icon}
+      </div>
     </div>
   );
 };

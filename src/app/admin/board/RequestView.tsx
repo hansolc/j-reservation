@@ -1,11 +1,15 @@
 "use client";
 
-import useFetchRequest from "@/components/admin/hooks/useFetchRequest";
-import React from "react";
+import RequestList from "@/components/admin/request";
+import Section from "@/components/common/section";
+import React, { useState } from "react";
 
 const RequestView = () => {
-  const { data } = useFetchRequest();
-  return <div>RequestView</div>;
+  return (
+    <Section className="flex flex-col gap-10">
+      <RequestList />
+    </Section>
+  );
 };
 
 export default RequestView;

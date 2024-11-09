@@ -7,4 +7,14 @@ interface ServerFetchRequestProps extends ServerPostRequestProps {
   deleted: boolean;
 }
 
-export type { ServerPostRequestProps, ServerFetchRequestProps };
+interface ServerAdminFetchRequestProps extends ServerFetchRequestProps {
+  id: number;
+  createdAt: string;
+  responseContent?: string;
+}
+
+export type {
+  ServerPostRequestProps,
+  ServerFetchRequestProps,
+  ServerAdminFetchRequestProps,
+};
