@@ -7,15 +7,17 @@ const DateTimeUI = ({
   onDateChange,
   onTimeChange,
   disabled,
+  isSelectedTime = false,
 }: {
   date: string;
   time: string;
   onDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled: boolean;
+  isSelectedTime: boolean;
 }) => {
   return (
-    <Form.FieldContainer multiple>
+    <Form.FieldContainer multiple isSelectedTime={isSelectedTime}>
       <Form.Input
         label={`날짜`}
         type="date"

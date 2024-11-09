@@ -15,12 +15,8 @@ const seperateIsostring = (dateTime?: string) => {
 };
 
 const getBadgeColor = (status: ReservationStatus) => {
-  const posArray: PositiveReservationStatus[] = [
-    "WAITING",
-    "AVAILABLE",
-    "CONFIRMED",
-  ];
-  const negArray: NegativeReservationStatus[] = ["CANCELED", "UNAVAILABLE"];
+  const posArray: ReservationStatus[] = ["WAITING", "AVAILABLE", "CONFIRMED"];
+  const negArray: ReservationStatus[] = ["CANCELED", "UNAVAILABLE"];
 
   if (posArray.includes(status)) return "primary";
   else if (negArray.includes(status)) return "warning";
@@ -43,9 +39,17 @@ const pickReservationInfo = <T extends keyof FormInfoProps>(
 
 const isostringToDateTime = (str: string) => {
   const date = new Date(str);
-  return `${date.getMonth()}/${date.getDate()} ${date.getHours()}:${
+  return `${(date.getMonth() + 1).toString().length === 1 ? "0" : ""}${
+    date.getMonth() + 1
+  }/${
+    date.getDate().toString().length === 1 ? "0" : ""
+  }${date.getDate()} ${date.getHours()}:${
     date.getMinutes() ?? 0
   }${date.getMinutes()}`;
+};
+
+const dateAndTimeToIsostring = (date: string, time: string) => {
+  return `${date}T${time}`;
 };
 
 export {
@@ -53,4 +57,5 @@ export {
   getBadgeColor,
   pickReservationInfo,
   isostringToDateTime,
+  dateAndTimeToIsostring,
 };

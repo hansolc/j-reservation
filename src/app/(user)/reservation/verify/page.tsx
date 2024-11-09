@@ -1,9 +1,27 @@
+"use client";
+
+import endpoint from "@/api/apiConfig";
 import Section from "@/components/common/section";
 import Goback from "@/components/user/GoBack";
+import useUserFetchReservation from "@/components/user/hooks/useUserFetchReservation";
 import ReservationForm from "@/components/user/reservation/ReservationForm";
-import React from "react";
+import {
+  FormInfoProps,
+  ServerReservationProps,
+  ServerViewReservationProps,
+} from "@/types/reservation";
+import { useSearchParams } from "next/navigation";
+import React, { Suspense } from "react";
 
-const ReservationVerifyPage = () => {
+const ReservationVerifyPageContent = () => {
+  const queryparam = useSearchParams();
+  const reservationId = queryparam.get("reservationId");
+  const nth = queryparam.get("nth");
+  const { specificReservationInfo } = useUserFetchReservation({
+    forceFetch: true,
+    reservationId: Number(reservationId),
+  });
+
   return (
     <Section className="flex flex-col">
       <Goback />
@@ -16,8 +34,19 @@ const ReservationVerifyPage = () => {
         <br />
         문의하기를 통해 꼭 알려주세요
       </Section.Text>
-      <ReservationForm />
+      {/* <ReservationForm formInfo={specificReservationInfo} /> */}
+      {specificReservationInfo && (
+        <ReservationForm formInfo={specificReservationInfo} nth={Number(nth)} />
+      )}
     </Section>
+  );
+};
+
+const ReservationVerifyPage = () => {
+  return (
+    <Suspense fallback={<div>...loading</div>}>
+      <ReservationVerifyPageContent />
+    </Suspense>
   );
 };
 

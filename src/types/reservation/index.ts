@@ -1,6 +1,6 @@
 type PositiveReservationStatus = "WAITING" | "AVAILABLE" | "CONFIRMED";
 type NegativeReservationStatus = "UNAVAILABLE" | "CANCELED";
-type ReservationStatus = PositiveReservationStatus & NegativeReservationStatus;
+type ReservationStatus = PositiveReservationStatus | NegativeReservationStatus;
 
 // Reservation Form
 interface ReservationBaseProps {
