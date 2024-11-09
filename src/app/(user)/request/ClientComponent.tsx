@@ -19,10 +19,12 @@ const RequestView = ({
   if (!requestList || requestList.length === 0)
     return <p>문의 내용이 없습니다.</p>;
   return (
-    <div className="mt-2">
+    <div className="my-5">
+      <p className="font-bold text-lg">문의조회</p>
       {requestList.map((r, idx) => {
         return (
-          <>
+          // key => requestId 로 수정 필요
+          <div key={`user_request_id_${idx}`} className="py-2">
             <AbsoluteIcon
               Icon={<DeleteIcon />}
               position="top-right"
@@ -32,7 +34,7 @@ const RequestView = ({
             />
             <p className="border-b">{r.title}</p>
             <p>{r.content}</p>
-          </>
+          </div>
         );
       })}
     </div>
@@ -52,7 +54,7 @@ const RequestCreate = () => {
       }}
     >
       <fieldset className="flex flex-col gap-5 my-2">
-        <legend className="font-bold">문의 작성</legend>
+        <legend className="font-bold text-lg">문의 작성</legend>
         <div className="flex flex-col">
           <label htmlFor="">제목: </label>
           <input
@@ -73,7 +75,13 @@ const RequestCreate = () => {
           ></textarea>
         </div>
       </fieldset>
-      <Button color="primary" size="full" isRadius type="submit">
+      <Button
+        color="primary"
+        size="full"
+        isRadius
+        type="submit"
+        disabled={!title || !content}
+      >
         제출하기
       </Button>
     </form>

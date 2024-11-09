@@ -14,10 +14,12 @@ import toast from "react-hot-toast";
 const useUserPostRequest = () => {
   const { userId } = useAuth();
   const queryClient = useQueryClient();
-  const [requestInfo, setRequestInfo] = useState<ServerPostRequestProps>({
+  const initialRequestInfo = {
     title: "",
     content: "",
-  });
+  };
+  const [requestInfo, setRequestInfo] =
+    useState<ServerPostRequestProps>(initialRequestInfo);
 
   const handleRequestInfo = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -37,6 +39,7 @@ const useUserPostRequest = () => {
       queryClient.invalidateQueries({
         queryKey: ["user_fetch_request", userId],
       });
+      setRequestInfo(initialRequestInfo);
       toast.success(res);
     },
   });
