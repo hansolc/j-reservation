@@ -24,6 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <title>omatasae</title>
       <body className={notoSansKr.className}>
         <ErrorProvider>
           <ReactQueryProvider>
