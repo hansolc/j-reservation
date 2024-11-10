@@ -34,9 +34,11 @@ const RequestView = ({
             />
             <p className="border-b">{r.title}</p>
             <p>{r.content}</p>
-            <p className="bg-gray-200 rounded-lg h-20 p-2 mt-3">
-              {r.responseContent && r.responseContent}
-            </p>
+            {r.responseContent && (
+              <p className="bg-gray-200 rounded-lg h-20 p-2 mt-3">
+                {r.responseContent}
+              </p>
+            )}
           </div>
         );
       })}
