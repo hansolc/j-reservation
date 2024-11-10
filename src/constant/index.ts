@@ -3,8 +3,8 @@ import { BackgroundColorKeys } from "@/types/styles";
 
 // const API_URL = "http://localhost:8080";
 // const API_URL = "http://3.38.251.66:8080";
-const API_URL = "http://13.124.90.41:8080";
-// const API_URL = "https://13.124.90.41:8080";
+// const API_URL = "http://13.124.90.41:8080";
+const API_URL = "https://13.124.90.41:8080";
 
 const ErrorCode = {
   "3001": "아이디가 없습니다.",
