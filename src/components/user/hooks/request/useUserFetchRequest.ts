@@ -13,20 +13,10 @@ const useUserFetchRequest = () => {
     queryFn: () => getInquiriesByUser(userId),
     enabled: !!userId,
   });
-  const [requestList, setRequestList] = useState<
-    Array<ServerFetchRequestProps>
-  >([]);
-
-  useEffect(() => {
-    if (data && data.length >= 1) {
-      setRequestList(data);
-    }
-  }, [data]);
 
   return {
-    requestList,
+    requestList: data,
     isLoading,
-    updateRequestList: setRequestList,
   };
 };
 

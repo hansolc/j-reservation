@@ -47,7 +47,10 @@ const useUserPostRequest = () => {
   const { mutate: deleteRequest } = useMutation({
     mutationFn: (inquiryId: number) => deleteInquiresByUser(inquiryId),
     onSuccess: (res) => {
-      toast.success(res);
+      queryClient.invalidateQueries({
+        queryKey: ["user_fetch_request", userId],
+      });
+      toast.success("문의 삭제 완료");
     },
   });
 

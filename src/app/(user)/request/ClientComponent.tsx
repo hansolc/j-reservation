@@ -30,10 +30,15 @@ const RequestView = ({
               position="top-right"
               className="cursor-pointer"
               //   문의 조회 api 수정 후 수정 필요
-              //   onClick={}
+              onClick={() => deleteRequest(r.id)}
             />
             <p className="border-b">{r.title}</p>
             <p>{r.content}</p>
+            {r.responseContent && (
+              <p className="bg-gray-200 rounded-lg h-20 p-2 mt-3">
+                {r.responseContent}
+              </p>
+            )}
           </div>
         );
       })}

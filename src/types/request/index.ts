@@ -4,7 +4,9 @@ interface ServerPostRequestProps {
 }
 
 interface ServerFetchRequestProps extends ServerPostRequestProps {
+  id: number;
   deleted: boolean;
+  responseContent?: string;
 }
 
 interface ServerAdminFetchRequestProps extends ServerFetchRequestProps {
