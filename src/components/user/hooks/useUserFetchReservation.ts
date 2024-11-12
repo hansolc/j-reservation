@@ -25,9 +25,11 @@ const useUserFetchReservation = ({
     queryKey: ["reservation", userId],
     queryFn: () => getReservationInfoByUser(userId),
     enabled: !!userId,
-    ...(forceFetch
-      ? { staleTime: 0, refetchOnMount: true, refetchOnWindowFocus: true }
-      : {}),
+    refetchOnMount: true,
+    staleTime: 0,
+    // ...(forceFetch
+    //   ? { staleTime: 0, refetchOnMount: true, refetchOnWindowFocus: true }
+    //   : {}),
   });
 
   const reformServerDataToClient = useCallback(
@@ -53,17 +55,17 @@ const useUserFetchReservation = ({
     []
   );
 
-  const reformedDataArray: Array<FormInfoProps> = useMemo(() => {
+  const reformedDataArray: Array<FormInfoProps> | undefined = useMemo(() => {
     if (serverData) {
       const res = serverData.map((d) => reformServerDataToClient(d));
       return res;
     }
-    return [];
+    return undefined;
   }, [serverData, reformServerDataToClient]);
 
   // query params을 통해 훅의 props로 reservation id를 받아와 useQuery을 통해 받은 데이터에서 찾기
   const specificReservationInfo = useMemo(() => {
-    if (reservationId) {
+    if (reservationId && reformedDataArray) {
       return reformedDataArray.find((r) => {
         return r.id === reservationId;
       });

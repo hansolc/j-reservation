@@ -149,12 +149,18 @@ const ReservationForm = ({
       onSubmit={handleSubmit}
       className={`mb-10 ${
         status === "CONFIRMED" && "border-primary border-2"
-      } ${status === "CANCELED" && "border-warn border-2"}`}
+      } ${status === "UNAVAILABLE" && "border-warn border-2"}`}
     >
       <Form.Header>
         <p className="font-bold">{`${nth} 번째 예약`}</p>
         {!controlable && (
-          <Badge isRadius>{RESERVATION_STATUS[status || "WAITING"]}</Badge>
+          <Badge
+            isRadius
+            // HACKY WAY NEED TO FIX!
+            color={status === "UNAVAILABLE" ? "warning" : "primary"}
+          >
+            {RESERVATION_STATUS[status || "WAITING"]}
+          </Badge>
         )}
       </Form.Header>
       <Form.FieldContainer>

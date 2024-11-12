@@ -1,5 +1,5 @@
-import { API_URL } from "@/constant";
-import { checkToken } from "@/utils/api";
+import { PROXY_PATH } from "@/constant";
+import { checkToken, createAxiosInstance } from "@/utils/api";
 import axios, { AxiosResponse } from "axios";
 import endpoint from "../apiConfig";
 import {
@@ -9,22 +9,14 @@ import {
   ServerViewReservationProps,
 } from "@/types/reservation";
 
-const reservationAxios = axios.create({ baseURL: `${API_URL}/api/` });
-reservationAxios.interceptors.request.use((req) => {
-  req.headers.Authorization = checkToken();
-  return req;
+const reservationAxios = createAxiosInstance({
+  baseUrl: `${PROXY_PATH}/api/`,
+  authentication: true,
 });
-
-reservationAxios.interceptors.response.use((res) => res.data);
-
-const adminReservationAxios = axios.create({
-  baseURL: `${API_URL}/admin/api/`,
+const adminReservationAxios = createAxiosInstance({
+  baseUrl: `${PROXY_PATH}/admin/api/`,
+  authentication: true,
 });
-adminReservationAxios.interceptors.request.use((req) => {
-  req.headers.Authorization = checkToken();
-  return req;
-});
-adminReservationAxios.interceptors.response.use((res) => res.data);
 
 const createReservationByUser = async (
   data: ServerReservationProps,

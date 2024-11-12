@@ -8,6 +8,8 @@
 //   try {
 //     const res = await apiCall();
 
+import axios, { AxiosInstance } from "axios";
+
 //     if (res.ok) {
 //       const data = (await res.json()) as T;
 //       return data;
@@ -62,8 +64,35 @@
 
 const checkToken = () => localStorage.getItem("jwToken") ?? false;
 
+const createAxiosInstance = ({
+  baseUrl,
+  authentication,
+}: {
+  baseUrl: string;
+  authentication?: boolean;
+}): AxiosInstance => {
+  const axiosInstance = axios.create({
+    baseURL: baseUrl,
+  });
+
+  if (authentication) {
+    axiosInstance.interceptors.request.use((req) => {
+      req.headers.Authorization = checkToken();
+      return req;
+    });
+  }
+
+  axiosInstance.interceptors.response.use((res) =>
+    // need to access Response.headers when regis/login
+    authentication ? res.data : res
+  );
+
+  return axiosInstance;
+};
+
 export {
   // handleApiCall,
   // myFetch,
   checkToken,
+  createAxiosInstance,
 };
