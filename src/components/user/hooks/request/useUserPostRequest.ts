@@ -40,7 +40,7 @@ const useUserPostRequest = () => {
         queryKey: ["user_fetch_request", userId],
       });
       setRequestInfo(initialRequestInfo);
-      toast.success(res);
+      toast.success("문의 작성 성공!");
     },
   });
 

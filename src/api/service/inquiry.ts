@@ -1,5 +1,5 @@
-import { API_URL } from "@/constant";
-import { checkToken } from "@/utils/api";
+import { PROXY_PATH } from "@/constant";
+import { checkToken, createAxiosInstance } from "@/utils/api";
 import axios from "axios";
 import endpoint from "../apiConfig";
 import {
@@ -8,43 +8,26 @@ import {
   ServerPostRequestProps,
 } from "@/types/request";
 
-const inquiryAxios = axios.create({
-  baseURL: `${API_URL}/api/`,
+const inquiryAxios = createAxiosInstance({
+  baseUrl: `${PROXY_PATH}/api/`,
+  authentication: true,
 });
-
-inquiryAxios.interceptors.request.use((req) => {
-  req.headers.Authorization = checkToken();
-  return req;
+const adminInquiryAxios = createAxiosInstance({
+  baseUrl: `${PROXY_PATH}/admin/api/`,
+  authentication: true,
 });
-
-inquiryAxios.interceptors.response.use((res) => res.data);
-
-const adminInquiryAxios = axios.create({
-  baseURL: `${API_URL}/admin/api/`,
-});
-
-adminInquiryAxios.interceptors.request.use((req) => {
-  const token = checkToken();
-  if (token) {
-    req.headers.Authorization = checkToken();
-  }
-  return req;
-});
-
-adminInquiryAxios.interceptors.response.use((res) => res.data);
-
-inquiryAxios.interceptors.response.use((res) => res.data);
 
 const getInquiriesByUser = async (
   userId: number
 ): Promise<Array<ServerFetchRequestProps>> => {
-  return await inquiryAxios.get(`${endpoint.getInquiresUser}/${userId}`);
+  const res = await inquiryAxios.get(`${endpoint.getInquiresUser}/${userId}`);
+  return res.data;
 };
 
 const createInquiryByUser = async (
   userId: number,
   inquiryInfo: ServerPostRequestProps
-): Promise<string> => {
+): Promise<ServerPostRequestProps> => {
   return await inquiryAxios.post(
     `${endpoint.createInquiryUser}/${userId}`,
     inquiryInfo

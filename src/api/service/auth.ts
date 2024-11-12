@@ -1,9 +1,11 @@
 import { AuthProps, RegistrationSubmit } from "@/types/auth";
 import endpoint from "../apiConfig";
 import axios, { AxiosResponse } from "axios";
-import { API_URL } from "@/constant";
+import { createAxiosInstance } from "@/utils/api";
+import { PROXY_PATH } from "@/constant";
 
-const authAxios = axios.create({ baseURL: "/api/v2/" });
+// const authAxios = axios.create({ baseURL: "/api/v2/" });
+const authAxios = createAxiosInstance({ baseUrl: `${PROXY_PATH}/` });
 
 const loginUser = async ({ username, password }: AuthProps) => {
   const data = new FormData();
@@ -22,7 +24,7 @@ const regis = async ({
   data.append("username", username);
   data.append("password", password);
   const res = await authAxios.post(`${endpoint.registration}/${role}`, data);
-  return { res: res.data, role };
+  return { res, role };
 };
 
 export { loginUser, regis };

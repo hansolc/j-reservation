@@ -23,55 +23,33 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/components/common/AuthContext";
 import { useRouter } from "next/navigation";
 import SectionHeaderWithBack from "@/components/user/SectionHeaderWithBack";
+import useUserFetchRequest from "@/components/user/hooks/request/useUserFetchRequest";
+import useUserFetchReservation from "@/components/user/hooks/useUserFetchReservation";
 
 const ReservationCheckPage = () => {
-  const [reservations, setReservations] = useState<Array<FormInfoProps>>([]);
   const router = useRouter();
-  const { userId } = useAuth();
-  const { data, isSuccess } = useQuery({
-    queryKey: ["reservation", userId],
-    queryFn: () => getReservationInfoByUser(userId),
-    enabled: !!userId,
-  });
-  useEffect(() => {
-    if (data && isSuccess) {
-      console.log(data);
-      const reformedData: Array<FormInfoProps> = data?.map((d) => {
-        return {
-          adults: d.adult_count,
-          kids: d.child_count,
-          id: d.reservationId,
-          link: d.restaurant_link,
-          status: d.status,
-          primaryDateTime: d.primary_date_time,
-          ...(d.secondary_date_time
-            ? { secondaryDateTime: d.secondary_date_time }
-            : {}),
-          ...(d.tertiary_date_time
-            ? { tertiaryDateTime: d.tertiary_date_time }
-            : {}),
-          ...(d.available_date_time
-            ? { availableDateTime: d.available_date_time }
-            : {}),
-        };
-      });
-      setReservations(reformedData);
-    }
-  }, [data, isSuccess]);
+  const { data, isLoading } = useUserFetchReservation();
+
+  if (!data) {
+    return <p>...loading</p>;
+  }
   return (
     <Section>
       <SectionHeaderWithBack>예약확인</SectionHeaderWithBack>
       <FirstUserBanner className="mt-4" />
-      {reservations.length > 0 ? (
-        reservations.map((r, index) => {
-          return (
-            <ReservationForm
-              key={`reservation_check_${r.id}`}
-              formInfo={r}
-              nth={index + 1}
-            />
-          );
-        })
+      {data.length > 0 ? (
+        <>
+          {isLoading && <p>데이터 업데이트 중입니다...</p>}
+          {data.map((r, index) => {
+            return (
+              <ReservationForm
+                key={`reservation_check_${r.id}`}
+                formInfo={r}
+                nth={index + 1}
+              />
+            );
+          })}
+        </>
       ) : (
         <p className="text-center pt-4">예약 내역이 없습니다.</p>
       )}
@@ -79,7 +57,7 @@ const ReservationCheckPage = () => {
         color="primary"
         size="full"
         className="mt-5"
-        onClick={() => router.push(`/reservation/${reservations.length + 1}`)}
+        onClick={() => router.push(`/reservation/${data.length + 1}`)}
       >
         추가로 예약하기
       </Button>
