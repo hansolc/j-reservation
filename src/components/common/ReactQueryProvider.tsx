@@ -18,6 +18,8 @@ const ReactQueryProvider = ({ children }: PropsWithChildren) => {
         defaultOptions: {
           queries: {
             staleTime: 60 * 10000,
+            refetchOnReconnect: true,
+            refetchOnWindowFocus: true,
           },
         },
         queryCache: new QueryCache({

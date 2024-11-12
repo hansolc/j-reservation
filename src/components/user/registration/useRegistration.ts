@@ -33,7 +33,7 @@ const useRegistration = () => {
     onSuccess: ({ res, role }) => {
       console.log("success: ", res);
       // decode jwToken and redirect by role value
-      if (role === "user") router.push("/login");
+      if (role === "user") router.push("/registration/login");
       else router.push("/admin");
     },
   });
