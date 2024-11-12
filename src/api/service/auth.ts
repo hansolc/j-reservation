@@ -3,7 +3,7 @@ import endpoint from "../apiConfig";
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "@/constant";
 
-const authAxios = axios.create({ baseURL: API_URL });
+const authAxios = axios.create({ baseURL: "/api/v2/" });
 
 const loginUser = async ({ username, password }: AuthProps) => {
   const data = new FormData();

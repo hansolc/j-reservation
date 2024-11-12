@@ -1,7 +1,7 @@
 const endpoint = {
   // auth
-  login: `/login`,
-  registration: `/join`,
+  login: `/api/login`,
+  registration: `/api/join`,
   adminRegistration: `/join/admin`,
   // reservation
   createReservation: `/reservation/user`,
