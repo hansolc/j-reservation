@@ -55,19 +55,23 @@ const dateAndTimeToIsostring = (date: string, time: string) => {
 };
 
 const reservationClientToServerData = (
-  reservationInfo: FormInfoInputHandleProps
+  reservationInfo: FormInfoProps
 ): ServerReservationProps => {
-  const { link, adults, kids, pDate, pTime, sDate, sTime, tDate, tTime } =
-    reservationInfo;
+  const {
+    link,
+    adults,
+    kids,
+    primaryDateTime,
+    secondaryDateTime,
+    tertiaryDateTime,
+  } = reservationInfo;
   return {
     restaurant_link: link,
     adult_count: adults,
     child_count: kids,
-    primary_date_time: pDate + "T" + pTime + ":00",
-    ...(sDate &&
-      sTime && { secondary_date_time: dateAndTimeToIsostring(sDate, sTime) }),
-    ...(tDate &&
-      tTime && { tertiary_date_time: dateAndTimeToIsostring(tDate, tTime) }),
+    primary_date_time: primaryDateTime,
+    ...(secondaryDateTime && { secondary_date_time: secondaryDateTime }),
+    ...(tertiaryDateTime && { tertiary_date_time: tertiaryDateTime }),
   };
 };
 

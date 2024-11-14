@@ -1,5 +1,6 @@
 import { FormInfoProps, ReservationStatus } from "@/types/reservation";
 import {
+  dateAndTimeToIsostring,
   reservationClientToServerData,
   seperateIsostring,
 } from "@/utils/reservation";
@@ -49,11 +50,37 @@ const useReservationForm = (formInfo: FormInfoProps = formInfoDefault) => {
     };
   }, []);
 
+  const reformedToFormInfo = (): FormInfoProps => {
+    return {
+      id: formInfo.id,
+      adults: formData.adults,
+      kids: formData.kids,
+      link: formData.link,
+      primaryDateTime: dateAndTimeToIsostring(formData.pDate, formData.pTime),
+      status: "WAITING",
+      ...(formData.sDate &&
+        formData.sTime && {
+          secondaryDateTime: dateAndTimeToIsostring(
+            formData.sDate,
+            formData.sTime
+          ),
+        }),
+      ...(formData.tDate &&
+        formData.tTime && {
+          tertiaryDateTime: dateAndTimeToIsostring(
+            formData.tDate,
+            formData.tTime
+          ),
+        }),
+    };
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = reservationClientToServerData(formData);
+    const data: FormInfoProps = reformedToFormInfo();
+    const dataToServer = reservationClientToServerData(data);
 
-    createReservation(data, {
+    createReservation(dataToServer, {
       onSuccess: () => router.push("/reservation/success"),
     });
   };
