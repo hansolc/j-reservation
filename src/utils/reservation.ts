@@ -1,9 +1,11 @@
 import {
+  FormInfoInputHandleProps,
   FormInfoProps,
   NegativeReservationStatus,
   PositiveReservationStatus,
   ReservationAdminData,
   ReservationStatus,
+  ServerReservationProps,
 } from "@/types/reservation";
 
 const seperateIsostring = (dateTime?: string) => {
@@ -52,10 +54,28 @@ const dateAndTimeToIsostring = (date: string, time: string) => {
   return `${date}T${time}`;
 };
 
+const reservationClientToServerData = (
+  reservationInfo: FormInfoInputHandleProps
+): ServerReservationProps => {
+  const { link, adults, kids, pDate, pTime, sDate, sTime, tDate, tTime } =
+    reservationInfo;
+  return {
+    restaurant_link: link,
+    adult_count: adults,
+    child_count: kids,
+    primary_date_time: pDate + "T" + pTime + ":00",
+    ...(sDate &&
+      sTime && { secondary_date_time: dateAndTimeToIsostring(sDate, sTime) }),
+    ...(tDate &&
+      tTime && { tertiary_date_time: dateAndTimeToIsostring(tDate, tTime) }),
+  };
+};
+
 export {
   seperateIsostring,
   getBadgeColor,
   pickReservationInfo,
   isostringToDateTime,
   dateAndTimeToIsostring,
+  reservationClientToServerData,
 };

@@ -5,25 +5,26 @@ import { isostringToDateTime } from "@/utils/reservation";
 import Button from "../button";
 
 const ReservationConfirmButton = ({
-  formInfo,
+  id,
   status,
   nth,
   dateTime,
 }: {
-  formInfo: FormInfoProps;
+  id: number;
   status: ReservationStatus;
   nth: number;
   dateTime: string;
 }) => {
   const router = useRouter();
-  const { id } = formInfo;
-  const { confirmReservation } = useUserPostReservation({ reservationId: id });
+  const { confirmReservation } = useUserPostReservation();
 
   const handleClick = () => {
     if (window.location.pathname.includes("check")) {
       router.push(`/reservation/verify?reservationId=${id}&nth=${nth}`);
     } else if (window.location.pathname.includes("verify")) {
-      confirmReservation();
+      confirmReservation(id, {
+        onSuccess: () => router.replace("/reservation/success/done"),
+      });
     }
   };
 
