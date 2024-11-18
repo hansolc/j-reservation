@@ -45,9 +45,7 @@ const isostringToDateTime = (str: string) => {
     date.getMonth() + 1
   }/${
     date.getDate().toString().length === 1 ? "0" : ""
-  }${date.getDate()} ${date.getHours()}:${
-    date.getMinutes() ?? 0
-  }${date.getMinutes()}`;
+  }${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
 };
 
 const dateAndTimeToIsostring = (date: string, time: string) => {
