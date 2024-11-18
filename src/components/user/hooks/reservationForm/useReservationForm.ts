@@ -4,7 +4,7 @@ import {
   reservationClientToServerData,
   seperateIsostring,
 } from "@/utils/reservation";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import useUserPostReservation from "../useUserPostReservation";
 import { useRouter } from "next/navigation";
 
@@ -22,7 +22,7 @@ const formInfoDefault = {
 const useReservationForm = (formInfo: FormInfoProps = formInfoDefault) => {
   const { createReservation } = useUserPostReservation();
   const router = useRouter();
-  const initialInfo = useMemo(() => {
+  const initialInfo = useCallback(() => {
     return {
       ...formInfo,
       pDate: seperateIsostring(formInfo?.primaryDateTime).date,
@@ -34,8 +34,13 @@ const useReservationForm = (formInfo: FormInfoProps = formInfoDefault) => {
     };
   }, [formInfo]);
 
-  const [formData, setFormData] = useState(initialInfo);
-  const { pDate, pTime, sDate, sTime, tDate, tTime } = formData;
+  const [formData, setFormData] = useState(initialInfo());
+  const { pDate, pTime, sDate, sTime, tDate, tTime, status } = formData;
+  useEffect(() => {
+    if (formInfo) {
+      setFormData(initialInfo());
+    }
+  }, [formInfo]);
 
   const handleChange = useCallback((field: string) => {
     return (e: React.ChangeEvent<HTMLInputElement>) => {

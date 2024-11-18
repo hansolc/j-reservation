@@ -43,7 +43,7 @@ const ReservationForm = ({
             // HACKY WAY NEED TO FIX!
             color={status === "UNAVAILABLE" ? "warning" : "primary"}
           >
-            {RESERVATION_STATUS[status || "WAITING"]}
+            {RESERVATION_STATUS[status]}
           </Badge>
         )}
       </Form.Header>
