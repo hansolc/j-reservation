@@ -2,6 +2,7 @@
 
 배포주소: [Website](https://j-reservation.vercel.app/) by vercel
 
+
 ## 배경
 
 최근, 일본여행을 많이 가는 사람들을 대상으로 일본에 음식점을 미리 예약하고 싶은 경우 일본서비스를 사용 하거나 지인 혹은 인터넷에서 일본어 가능자를 통해 3000원 정도에 음식점을 대리 예약 합니다.
@@ -26,6 +27,12 @@
 
 - 예약 조회/상태변경
 - 문의 조회/답변작성
+
+### 프로세스 데모 동영상
+1. [사용자 회원가입, 로그인, 예약여정](https://youtu.be/60KT3pTRf00)
+2. [사용자 문의 내용 생성](https://youtu.be/Km2jzPv3O_M)
+3. [사용자가 신청한 예약 상태를 변경 / 문의 내용에 답변 작성](https://youtu.be/Jogoa-nuTak)
+4. [사용자 문의내용 답변확인, 예약확정](https://youtu.be/ut6gAm1L3Yo)
 
 [todo & doc](https://www.notion.so/J_Reservation-12ac9f3dc9dd80239ba5c6e09e469705?p=12ac9f3dc9dd8117a159dd3f0c862eb2&pm=s)
 
