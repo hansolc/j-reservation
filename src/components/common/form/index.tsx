@@ -22,7 +22,6 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "date" | "time";
   placeholder?: string;
   className?: string;
-  seperate?: boolean;
 }
 
 // ***research
@@ -56,19 +55,11 @@ const FormInput = ({
   label,
   type = "text",
   placeholder,
-  seperate,
   name,
   ...rest
 }: FormInputProps) => {
   return (
-    <div
-      className={cls(
-        {
-          "border-r mr-2": seperate,
-        },
-        "w-full"
-      )}
-    >
+    <div className={cls("w-full")}>
       <p className="text-[10px] font-bold">{label}</p>
       <input
         className={cls("w-full", {
@@ -87,6 +78,7 @@ const FormFieldContainer = ({
   multiple = false,
   isSelectedTime = false,
 }: FormFieldContainerProps) => {
+  const childrenArray = React.Children.toArray(children);
   return (
     <>
       {isSelectedTime && (
@@ -106,7 +98,16 @@ const FormFieldContainer = ({
           }
         )}
       >
-        {children}
+        {childrenArray.map((child, idx) => {
+          return (
+            <React.Fragment key={`temporal_idx_key_${idx}`}>
+              {child}
+              {idx < childrenArray.length - 1 && (
+                <div className="w-[1px] bg-[#717171] mx-3"></div>
+              )}
+            </React.Fragment>
+          );
+        })}
       </div>
     </>
   );

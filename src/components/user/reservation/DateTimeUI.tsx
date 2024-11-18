@@ -21,7 +21,6 @@ const DateTimeUI = ({
       <Form.Input
         label={`날짜`}
         type="date"
-        seperate
         value={date}
         onChange={onDateChange}
         disabled={disabled}

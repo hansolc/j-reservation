@@ -41,15 +41,13 @@ const useUserFetchReservation = ({
         link: d.restaurant_link,
         status: d.status,
         primaryDateTime: d.primary_date_time,
-        ...(d.secondary_date_time
-          ? { secondaryDateTime: d.secondary_date_time }
-          : {}),
-        ...(d.tertiary_date_time
-          ? { tertiaryDateTime: d.tertiary_date_time }
-          : {}),
-        ...(d.available_date_time
-          ? { availableDateTime: d.available_date_time }
-          : {}),
+        ...(d.secondary_date_time && {
+          secondaryDateTime: d.secondary_date_time,
+        }),
+        ...(d.tertiary_date_time && { tertiaryDateTime: d.tertiary_date_time }),
+        ...(d.available_date_time && {
+          availableDateTime: d.available_date_time,
+        }),
       };
     },
     []

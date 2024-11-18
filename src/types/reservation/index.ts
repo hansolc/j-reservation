@@ -20,6 +20,15 @@ interface ReservationDateTimeProps {
 
 type FormInfoProps = ReservationBaseProps & ReservationDateTimeProps;
 
+interface FormInfoInputHandleProps extends FormInfoProps {
+  pDate: string;
+  pTime: string;
+  sDate?: string;
+  sTime?: string;
+  tDate?: string;
+  tTime?: string;
+}
+
 interface ReservationAdminData extends FormInfoProps {
   createdAt: string;
   userId: number;
@@ -78,4 +87,5 @@ export type {
   ReservationDateTimeProps,
   ServerReservationUpdateProps,
   ServerUpdateReservationProps,
+  FormInfoInputHandleProps,
 };

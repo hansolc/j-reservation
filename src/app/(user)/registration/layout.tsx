@@ -4,7 +4,7 @@ import React from "react";
 
 const RegistrationLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Section>
+    <Section className="h-full flex flex-col">
       <Goback />
       {children}
     </Section>
